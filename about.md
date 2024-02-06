@@ -54,6 +54,22 @@ title: Profile
     <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"/>
 </div>
 
+<h3 align="center">🏆 Participated in Competitions 🏆</h3>
+<div style="display: flex; justify-content: center;">
+    <img src="https://img.shields.io/badge/LikeLion%20Ideaton-F05032?style=for-the-badge"/>
+    <img src="https://img.shields.io/badge/LikeLion%20hackathon-F05032?style=for-the-badge"/>
+    <img src="https://img.shields.io/badge/Ajou%20DeepLearning%20Challenge-2496ED?style=for-the-badge"/>
+</div>
+<div style="display: flex; justify-content: center;">
+    <img src="https://img.shields.io/badge/2023%20ICPC%20Regional-000000?style=for-the-badge"/>
+    <img src="https://img.shields.io/badge/MireaSW%20BigData%20Ideaton-339933?style=for-the-badge"/>
+</div>
+
+<h3 align="center">🏆 Win in Competitions 🏆</h3>
+<div style="display: flex; justify-content: center;">
+    <img src="https://img.shields.io/badge/2023%20AjouTon-3178C6?style=for-the-badge"/>
+</div>
+
 🏫 Ajou University, Software and computer Engineering Department
 
 💻 멋쟁이 사자처럼 11th.
