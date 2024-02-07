@@ -76,8 +76,10 @@ title: Profile
 
 💻 멋쟁이 사자처럼 11th.
 
-<p>
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=hun9008&hide_progress=true">
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=hun9008&show_icons=true&theme=tokyonight">
-</p>
+<div align="center">
+
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=hun9008&hide_progress=true)
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=hun9008&show_icons=true&theme=tokyonight)
+
+</div>
 <!-- [![Solved.ac Profile](http://mazassumnida.wtf/api/generate_badge?boj=dydgns135)](https://solved.ac/dydgns135) -->
