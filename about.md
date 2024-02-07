@@ -75,17 +75,12 @@ title: Profile
 
 💻 멋쟁이 사자처럼 11th.
 
-<h3 align="center">🔗 Link</h3>
-<div align="center">
+<h3>🔗 Link</h3>
 
 [![Github Blog](https://img.shields.io/badge/BOJ-000000?style=for-the-badge)](https://solved.ac/profile/dydgns135)
-
-</div>
-
-<div align="center">
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=hun9008&hide_progress=true)
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=hun9008&show_icons=true&theme=tokyonight)
 
-</div>
+
 
