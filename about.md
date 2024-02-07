@@ -70,6 +70,14 @@ title: Profile
     <img src="https://img.shields.io/badge/2023%20AjouTon-3178C6?style=for-the-badge"/>
 </div>
 
+</br>
+
 🏫 Ajou University, Software and computer Engineering Department
 
 💻 멋쟁이 사자처럼 11th.
+
+<p>
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=hun9008&hide_progress=true">
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=hun9008&show_icons=true&theme=tokyonight">
+</p>
+<!-- [![Solved.ac Profile](http://mazassumnida.wtf/api/generate_badge?boj=dydgns135)](https://solved.ac/dydgns135) -->
