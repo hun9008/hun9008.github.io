@@ -8,25 +8,25 @@
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>백준 2Xn 타일링2 [c++] | console.log(‘HUN’)</title>
+<title>백준 동전0 [c++] | console.log(‘HUN’)</title>
 <meta name="generator" content="Jekyll v3.9.4" />
-<meta property="og:title" content="백준 2Xn 타일링2 [c++]" />
+<meta property="og:title" content="백준 동전0 [c++]" />
 <meta name="author" content="Hun" />
 <meta property="og:locale" content="en" />
-<meta name="description" content="2Xn 타일링2 실버3" />
-<meta property="og:description" content="2Xn 타일링2 실버3" />
-<link rel="canonical" href="http://localhost:4000/2024/02/07/11727_2Xn_tiling_2/" />
-<meta property="og:url" content="http://localhost:4000/2024/02/07/11727_2Xn_tiling_2/" />
+<meta name="description" content="동전0 실버 4" />
+<meta property="og:description" content="동전0 실버 4" />
+<link rel="canonical" href="http://localhost:4000/2024/02/08/11047_coin0/" />
+<meta property="og:url" content="http://localhost:4000/2024/02/08/11047_coin0/" />
 <meta property="og:site_name" content="console.log(‘HUN’)" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2024-02-07T00:18:00+09:00" />
+<meta property="article:published_time" content="2024-02-08T00:30:00+09:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="백준 2Xn 타일링2 [c++]" />
+<meta property="twitter:title" content="백준 동전0 [c++]" />
 <meta name="twitter:site" content="@vszhub" />
 <meta name="twitter:creator" content="@Hun" />
 <meta name="google-site-verification" content="xxxxx" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hun"},"dateModified":"2024-02-06T02:08:25+09:00","datePublished":"2024-02-07T00:18:00+09:00","description":"2Xn 타일링2 실버3","headline":"백준 2Xn 타일링2 [c++]","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/02/07/11727_2Xn_tiling_2/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"},"name":"Hun"},"url":"http://localhost:4000/2024/02/07/11727_2Xn_tiling_2/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hun"},"dateModified":"2024-02-07T02:08:30+09:00","datePublished":"2024-02-08T00:30:00+09:00","description":"동전0 실버 4","headline":"백준 동전0 [c++]","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/02/08/11047_coin0/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"},"name":"Hun"},"url":"http://localhost:4000/2024/02/08/11047_coin0/"}</script>
 <!-- End Jekyll SEO tag -->
 <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="console.log('HUN')" />
 </head>
@@ -66,59 +66,78 @@
 
       <div class="content pure-u-1 pure-u-md-1-2"><main>
   <article class="post">
-  <h1 class="post-title">백준 2Xn 타일링2 [c++]</h1>
-  <div class="post-meta"><time datetime="2024-02-07T00:18:00+09:00" itemprop="datePublished">7 Feb 2024</time><span> ~ </span><time datetime="2024-02-06T02:08:25+09:00" itemprop="dateModified">
-        6 Feb 2024
+  <h1 class="post-title">백준 동전0 [c++]</h1>
+  <div class="post-meta"><time datetime="2024-02-08T00:30:00+09:00" itemprop="datePublished">8 Feb 2024</time><span> ~ </span><time datetime="2024-02-07T02:08:30+09:00" itemprop="dateModified">
+        7 Feb 2024
       </time><span> • </span>
       
         <span itemprop="author" itemscope itemtype="http://schema.org/Person">
           Hun
         </span></div>
 
-  <h1 id="2xn-타일링2-실버3">2Xn 타일링2 실버3</h1>
+  <h1 id="동전0-실버-4">동전0 실버 4</h1>
 
 <h2 id="문제">문제</h2>
-<p>2×n 직사각형을 1×2, 2×1과 2×2 타일로 채우는 방법의 수를 구하는 프로그램을 작성하시오.</p>
+<p>준규가 가지고 있는 동전은 총 N종류이고, 각각의 동전을 매우 많이 가지고 있다.</p>
 
-<p>아래 그림은 2×17 직사각형을 채운 한가지 예이다.</p>
+<p>동전을 적절히 사용해서 그 가치의 합을 K로 만들려고 한다. 이때 필요한 동전 개수의 최솟값을 구하는 프로그램을 작성하시오.</p>
 
 <h2 id="입력">입력</h2>
-<p>첫째 줄에 n이 주어진다. (1 ≤ n ≤ 1,000)</p>
+
+<p>첫째 줄에 N과 K가 주어진다. (1 ≤ N ≤ 10, 1 ≤ K ≤ 100,000,000)</p>
+
+<p>둘째 줄부터 N개의 줄에 동전의 가치 Ai가 오름차순으로 주어진다. (1 ≤ Ai ≤ 1,000,000, A1 = 1, i ≥ 2인 경우에 Ai는 Ai-1의 배수)</p>
 
 <h2 id="출력">출력</h2>
-<p>첫째 줄에 2×n 크기의 직사각형을 채우는 방법의 수를 10,007로 나눈 나머지를 출력한다.</p>
 
-<h1 id="풀이">풀이</h1>
-<ul>
-  <li>2Xn 타일링과 비슷하나 2*2타일이 생겼다.</li>
-  <li>유사한 dp문제라 생각하고 n = 5까지 작성해봄.</li>
-  <li>dp[i] = dp[i-1] + dp[i-2]*2라는 식 나옴.</li>
-  <li>Done.3</li>
-</ul>
+<p>첫째 줄에 K원을 만드는데 필요한 동전 개수의 최솟값을 출력한다.</p>
 
-<h1 id="코드">코드</h1>
+<h2 id="풀이">풀이</h2>
+
+<p>전처리: 입력 동전 단위가 오름차순으로 주어지니, 스택에 넣어 내림차순으로 바꿔 사용하기 편하게 바꿈.</p>
+
+<ol>
+  <li>주어진 금액을 큰 단위의 동전으로 나눠지면 나눈다.</li>
+  <li>위 과정을 주어진 금액이 0이 될때까지, 혹은 동전 단위가 1이 될때까지 반복</li>
+</ol>
+
+<h2 id="코드">코드</h2>
 
 <figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stack&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1002</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">k</span> <span class="p">;</span>
 
-    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">dp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="kt">int</span> <span class="n">coin</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">c_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">scoin</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10007</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">scoin</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> 
     <span class="p">}</span>
 
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">scoin</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+        <span class="n">scoin</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">k</span> <span class="o">&gt;=</span> <span class="n">temp</span><span class="p">){</span>
+            <span class="n">c_count</span> <span class="o">+=</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">temp</span><span class="p">);</span>
+            <span class="n">k</span> <span class="o">-=</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">temp</span><span class="p">)</span> <span class="o">*</span> <span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">c_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span></code></pre></figure>
+
 
 
   
@@ -127,7 +146,7 @@
   <i class="post-tags-icon fas fa-tags"></i>
   <ul class="post-tags"><li>
         <a class="post-tag" href="/tags/#ps">ps</a></li><li>
-        <a class="post-tag" href="/tags/#dp">dp</a></li></ul>
+        <a class="post-tag" href="/tags/#greedy">greedy</a></li></ul>
 </div>
 
   
@@ -155,9 +174,9 @@
       </li>
     
       <li>
-        <a href="/2024/02/08/11047_coin0/">
-          백준 동전0 [c++]
-          <small><time datetime="2024-02-08T00:30:00+09:00">08 Feb 2024</time></small>
+        <a href="/2024/02/07/aFastAlgorithmForDeepBeliefNet/">
+          A Fast Algorithm For Deep Belief Net [논문]
+          <small><time datetime="2024-02-07T00:18:00+09:00">07 Feb 2024</time></small>
         </a>
       </li>
     
@@ -181,6 +200,8 @@
   <li><a href="#문제">문제</a></li>
   <li><a href="#입력">입력</a></li>
   <li><a href="#출력">출력</a></li>
+  <li><a href="#풀이">풀이</a></li>
+  <li><a href="#코드">코드</a></li>
 </ul>
 
   </nav>

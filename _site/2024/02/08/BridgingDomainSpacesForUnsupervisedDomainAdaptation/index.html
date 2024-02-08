@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Bridging Domain Spaces for Unsupervised Domain Adaptation [논문] | console.log(‘HUN’)</title>
+<meta name="generator" content="Jekyll v3.9.4" />
+<meta property="og:title" content="Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]" />
+<meta name="author" content="Hun" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="저자 : Wonjun Hwang" />
+<meta property="og:description" content="저자 : Wonjun Hwang" />
+<link rel="canonical" href="http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/" />
+<meta property="og:url" content="http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/" />
+<meta property="og:site_name" content="console.log(‘HUN’)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-02-08T21:18:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]" />
+<meta name="twitter:site" content="@vszhub" />
+<meta name="twitter:creator" content="@Hun" />
+<meta name="google-site-verification" content="xxxxx" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hun"},"dateModified":"2024-02-08T21:18:25+09:00","datePublished":"2024-02-08T21:18:00+09:00","description":"저자 : Wonjun Hwang","headline":"Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"},"name":"Hun"},"url":"http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="console.log('HUN')" />
+</head>
+
+
+  <body>
+
+    <div class="container pure-g"><div class="sidebar-left pure-u-1 pure-u-md-1-4" style="background-color: rgb(40, 73, 77); color: rgb(255, 255, 255); background-image: url(/bg.jpeg);"><header class="masthead">
+  <div class="avatar"><img src="/avatar.jpeg" class="avatar-image" alt="Hun">
+    </div>
+  <div class="masthead-title">
+    <a href="/" title="Home">console.log('HUN')</a>
+  </div>
+  <div class="masthead-tagline">
+    <small>A J.Y.Hun's Devlog</small>
+  </div><nav class="navigation">
+    <ul class="navigation-list"><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/">Blog</a>
+      </li><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/about/">Profile</a>
+      </li></ul>
+  </nav><div class="social pure-menu pure-menu-horizontal">
+      <ul class="social-icons pure-menu-list">
+      <li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="mailto://younghune135@gmail.com">
+            <i class="fas fa-envelope" title="Email"></i>
+          </a>
+        </li><li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="https://github.com/hun9008">
+            <i class="fab fa-github" title="GitHub"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+</header>
+</div>
+
+      <div class="content pure-u-1 pure-u-md-1-2"><main>
+  <article class="post">
+  <h1 class="post-title">Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]</h1>
+  <div class="post-meta"><time datetime="2024-02-08T21:18:00+09:00" itemprop="datePublished">8 Feb 2024</time><span> ~ </span><time datetime="2024-02-08T21:18:25+09:00" itemprop="dateModified">
+        8 Feb 2024
+      </time><span> • </span>
+      
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+          Hun
+        </span></div>
+
+  <p>저자 : Wonjun Hwang</p>
+
+<h1 id="1-introduction">1. Introduction</h1>
+<p>최근 컴퓨터 비전 딥러닝 애플리케이션에서 상당한 개선을 보였지만, 대부분 지도학습이었다. 지도학습에는 데이터를 수입하는데 많은 비용이 들어 준지도(semi-supervised), 비지도(unsupervised)학습이 연구되었는데 이는 유사한 도메인에서의 학습이었다.</p>
+
+<p><img src="/UDA_figure1.png" /></p>
+
+<blockquote>
+  <p>이전 UDA에서는 source와 target 도메인의 격차를 줄이기 위해 discriminator(판별자), MMD, JMMD 등을 사용했고 GAN 기반 DA가 사용되었다. 기본적으로 이는 source와 target간의 거리가 큰 경우는 고려되지 않는다.</p>
+</blockquote>
+
+<p>이 논문에서는 큰 도메인 불일치를 효율적으로 보상하기 위해 서로 상보적인 중간 증강 도메인을 구성한다. 이를 위해 Fixed ratio based mixup을 제안한다.</p>
+
+<p>Fixed ratio based mixup은 source와 target사이 무작위성을 최소화하고 여러 중간 도메인을 생성한다.</p>
+<blockquote>
+  <p>예를들어 Augmented domain close to the source domain 은 레이블 정보는 있지만 target 도메인과 상관관계는 낮다.</p>
+
+  <p>반면 Augmented domain close to the target domain은 라벨 정보는 부정확하지만 target domain과 유사성은 높다.</p>
+</blockquote>
+
+<p>이런 증강된 도메인에서 source와 target 도메인 사이를 연결하도록 서로 가르치는 보완모델을 훈련한다.
+구체적으로, target 샘플에 대한 높은 신뢰도 예측을 기반으로 한 양방향 매칭을 도입해 중간 도메인을 target 도메인으로 연결시킨다.</p>
+
+<p>또한 self-traning을 통해 성능을 향상시키기 위해, self-penalization을 적용한다.</p>
+
+<p>또한 각 iteration마다 변화하는 특성을 적절히 부과하가 위해 각 미니배치의 신뢰분포에 의한 적응형 임계값을 사용한다.</p>
+
+<p>마지막으로 서로 다른 증강된 모델의 발산을 막고자, source와 target 샘플의 비율이 동일한 증강 도메인을 사용해 일관성 정규화를 제안한다.</p>
+
+<p>Office-31, Office-Home, VisDA에서 테스트를 수행했다.</p>
+
+<h1 id="2-related-work">2. Related Work</h1>
+
+<h1 id="3-proposed-methods">3. Proposed methods</h1>
+
+
+
+  
+    
+      <div class="post-tags-section">
+  <i class="post-tags-icon fas fa-tags"></i>
+  <ul class="post-tags"><li>
+        <a class="post-tag" href="/tags/#paper">paper</a></li><li>
+        <a class="post-tag" href="/tags/#domain-adaptation">domain-adaptation</a></li></ul>
+</div>
+
+  
+
+  
+</article>
+
+
+<aside class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <a href="/2024/02/08/1167_TreeRadius/">
+          백준 트리의 지름(1167) [c++]
+          <small><time datetime="2024-02-08T20:00:00+09:00">08 Feb 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/02/08/11047_coin0/">
+          백준 동전0 [c++]
+          <small><time datetime="2024-02-08T00:30:00+09:00">08 Feb 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/02/07/aFastAlgorithmForDeepBeliefNet/">
+          A Fast Algorithm For Deep Belief Net [논문]
+          <small><time datetime="2024-02-07T00:18:00+09:00">07 Feb 2024</time></small>
+        </a>
+      </li>
+    
+  </ul>
+</aside>
+
+
+</main>
+
+<footer class="footer"><small>
+    &copy; 2020&nbsp;-&nbsp;2024 <a href="https://github.com/hun9008/">Hun</a>. All rights reserved.
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://github.com/vszhub/not-pure-poole">Not Pure Poole</a>.
+  </small>
+</footer>
+</div>
+      <div class="sidebar-right pure-u-1 pure-u-md-1-4">
+<div  class="toc-wrapper">
+  <h2 class="toc-title">Table of Contents</h2>
+    <nav class="toc-nav">
+      
+
+  </nav>
+</div>
+
+</div>
+    </div>
+
+    <script async src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script><script>
+  function strip(str, remove) {
+    while (str.length > 0 && remove.indexOf(str.charAt(0)) != -1) {
+      str = str.substr(1);
+    }
+    while (str.length > 0 && remove.indexOf(str.charAt(str.length - 1)) != -1) {
+      str = str.substr(0, str.length - 1);
+    }
+    return str;
+  }
+
+  function scroll() {
+    console.log('scroll');
+    window.scrollTo({
+      left: 0, 
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+    sessionStorage.removeItem('forceCheckScroll');
+  }
+
+  const forceCheckScroll = sessionStorage.getItem('forceCheckScroll') === 'true';
+  const checkScroll = strip(window.location.pathname, '/') !== strip('', '/');
+
+  if (forceCheckScroll || checkScroll) {
+    const maxWidth = "(max-width: 48rem)";
+    const result = window.matchMedia(maxWidth);
+    if (result.matches) {
+      scroll();
+    } else {
+      result.addListener((match) => {
+        if (match.media == maxWidth) {
+          if (match.matches) {
+            scroll();
+          }
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>
