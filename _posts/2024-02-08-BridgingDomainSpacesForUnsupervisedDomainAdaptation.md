@@ -95,6 +95,8 @@ target 도메인으로부터 label이 지정되지 않은 데이터
 Ns와 Nt는 각각 Xs와 Xt의 크기를 나타낸다.
 이 논문의 목표는 source 도메인에서 학습한 지식이 target 도메인에서 잘 일반화되도록 하는 것이다.
 
+<img src="/UDA_figure2.png">
+
 ### 3.1 Fixed Ratio-based Mixup
 기존 믹스업의 문제점:
 
