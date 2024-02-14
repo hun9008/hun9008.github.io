@@ -1,4 +1,171 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-02-09T20:39:33+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">console.log(‘HUN’)</title><subtitle>J.Y.Hun's Devlog</subtitle><author><name>Hun</name><email>younghune135@gmail.com</email></author><entry><title type="html">Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]</title><link href="http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/" rel="alternate" type="text/html" title="Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]" /><published>2024-02-08T21:18:00+09:00</published><updated>2024-02-09T21:18:25+09:00</updated><id>http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation</id><content type="html" xml:base="http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/"><![CDATA[<p>저자 : Wonjun Hwang</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-02-14T17:13:14+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">console.log(‘HUN’)</title><subtitle>J.Y.Hun's Devlog</subtitle><author><name>Hun</name><email>younghune135@gmail.com</email></author><entry><title type="html">백준 점프 [c++]</title><link href="http://localhost:4000/2024/02/09/1890_Jump/" rel="alternate" type="text/html" title="백준 점프 [c++]" /><published>2024-02-09T16:00:00+09:00</published><updated>2024-02-09T17:08:25+09:00</updated><id>http://localhost:4000/2024/02/09/1890_Jump</id><content type="html" xml:base="http://localhost:4000/2024/02/09/1890_Jump/"><![CDATA[<h1 id="1890-점프-실버-1">1890 점프 실버 1</h1>
+
+<h2 id="문제">문제</h2>
+
+<p>N×N 게임판에 수가 적혀져 있다. 이 게임의 목표는 가장 왼쪽 위 칸에서 가장 오른쪽 아래 칸으로 규칙에 맞게 점프를 해서 가는 것이다.</p>
+
+<p>각 칸에 적혀있는 수는 현재 칸에서 갈 수 있는 거리를 의미한다. 반드시 오른쪽이나 아래쪽으로만 이동해야 한다. 0은 더 이상 진행을 막는 종착점이며, 항상 현재 칸에 적혀있는 수만큼 오른쪽이나 아래로 가야 한다. 한 번 점프를 할 때, 방향을 바꾸면 안 된다. 즉, 한 칸에서 오른쪽으로 점프를 하거나, 아래로 점프를 하는 두 경우만 존재한다.</p>
+
+<p>가장 왼쪽 위 칸에서 가장 오른쪽 아래 칸으로 규칙에 맞게 이동할 수 있는 경로의 개수를 구하는 프로그램을 작성하시오.</p>
+
+<h2 id="입력">입력</h2>
+
+<p>첫째 줄에 게임 판의 크기 N (4 ≤ N ≤ 100)이 주어진다. 그 다음 N개 줄에는 각 칸에 적혀져 있는 수가 N개씩 주어진다. 칸에 적혀있는 수는 0보다 크거나 같고, 9보다 작거나 같은 정수이며, 가장 오른쪽 아래 칸에는 항상 0이 주어진다.</p>
+
+<h2 id="출력">출력</h2>
+<p>가장 왼쪽 위 칸에서 가장 오른쪽 아래 칸으로 문제의 규칙에 맞게 갈 수 있는 경로의 개수를 출력한다. 경로의 개수는 263-1보다 작거나 같다.</p>
+
+<h2 id="풀이">풀이</h2>
+<p>처음에 그래프 문제라 생각하고 BFS로 풀면 되겠다 생각했다.</p>
+
+<h2 id="bfs-코드">BFS 코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">visited</span><span class="p">[</span><span class="mi">101</span><span class="p">][</span><span class="mi">101</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">maze</span><span class="p">[</span><span class="mi">101</span><span class="p">][</span><span class="mi">101</span><span class="p">];</span>
+<span class="n">queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+<span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">101</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">101</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+
+    <span class="n">visited</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">maze</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">));</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">maze</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]));</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+        <span class="kt">int</span> <span class="n">posX</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">posY</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="c1">// if(posX == n-1 &amp;&amp; posY == n-1){</span>
+        <span class="c1">//     cnt++;</span>
+        <span class="c1">//     q.pop();</span>
+        <span class="c1">//     continue;</span>
+        <span class="c1">// }</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">posX</span><span class="p">][</span><span class="n">posY</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">nX</span> <span class="o">=</span> <span class="n">posX</span> <span class="o">+</span> <span class="n">maze</span><span class="p">[</span><span class="n">posX</span><span class="p">][</span><span class="n">posY</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">nY</span> <span class="o">=</span> <span class="n">posY</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">nX</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">nY</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+            <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">nX</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="p">){</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">nX</span><span class="p">,</span> <span class="n">nY</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="n">nX</span> <span class="o">=</span> <span class="n">posX</span><span class="p">;</span>
+        <span class="n">nY</span> <span class="o">=</span> <span class="n">posY</span> <span class="o">+</span> <span class="n">maze</span><span class="p">[</span><span class="n">posX</span><span class="p">][</span><span class="n">posY</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">nX</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">nY</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+            <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">nY</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="p">){</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">nX</span><span class="p">,</span> <span class="n">nY</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">init</span><span class="p">();</span>
+    <span class="n">bfs</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">cnt</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>BFS로 풀었더니, 메모리 초과가 났다. 다른 풀이를 찾아보니 다들 DP로 해결했었다. 이유를 보니 중복을 허용해야 하고 경우의 수가 많아져 시간초과 또는 메모리 초과가 나 그래프로는 풀기 적합하지 않다는 것을 알게 되었다.</p>
+
+<p>이후 DP로 다시 접근했다.</p>
+
+<p>2차원 영역에서 진행하는 방향은 우측하단으로 정해져있기 때문에 이중 반복문으로 탐색해나가도 된다.</p>
+
+<ul>
+  <li>처음 dp[0][0]은 1로 설정한다. (시작점에서 시작점까지 가는 경우는 1)</li>
+  <li>우측 그리고 아래 방향으로 갈 수 있다면 이동할 dp값을 지금위치의 dp값만큼 더한다.
+    <ul>
+      <li>https://sdev.tistory.com/992</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="dp-코드">DP 코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">long</span> <span class="kt">long</span> <span class="n">dp</span><span class="p">[</span><span class="mi">101</span><span class="p">][</span><span class="mi">101</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">maze</span><span class="p">[</span><span class="mi">101</span><span class="p">][</span><span class="mi">101</span><span class="p">];</span>
+
+
+<span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">101</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">101</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">init</span><span class="p">();</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">move</span> <span class="o">=</span> <span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">move</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">move</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">){</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">move</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="n">move</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">){</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="n">move</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="DP" /><category term="BFS" /><summary type="html"><![CDATA[1890 점프 실버 1]]></summary></entry><entry><title type="html">FixBi-Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]</title><link href="http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/" rel="alternate" type="text/html" title="FixBi-Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]" /><published>2024-02-08T21:18:00+09:00</published><updated>2024-02-09T21:18:25+09:00</updated><id>http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation</id><content type="html" xml:base="http://localhost:4000/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/"><![CDATA[<p>저자 : Wonjun Hwang</p>
 
 <h2 id="1-introduction">1. Introduction</h2>
 <p>최근 컴퓨터 비전 딥러닝 애플리케이션에서 상당한 개선을 보였지만, 대부분 지도학습이었다. 지도학습에는 데이터를 수입하는데 많은 비용이 들어 준지도(semi-supervised), 비지도(unsupervised)학습이 연구되었는데 이는 유사한 도메인에서의 학습이었다.</p>
@@ -88,7 +255,98 @@
 <p>서로 다른 특징을 가진 두 증강 도메인을 사용하여 서로 “가르치는” 방식으로 학습
 이를 통해 도메인 지식을 타겟 도메인으로 효과적으로 전달</p>
 
-<h2 id="3-proposed-methods">3. Proposed methods</h2>]]></content><author><name>Hun</name></author><category term="Paper" /><category term="Domain Adaptation" /><summary type="html"><![CDATA[저자 : Wonjun Hwang]]></summary></entry><entry><title type="html">백준 트리의 지름(1167) [c++]</title><link href="http://localhost:4000/2024/02/08/1167_TreeRadius/" rel="alternate" type="text/html" title="백준 트리의 지름(1167) [c++]" /><published>2024-02-08T20:00:00+09:00</published><updated>2024-02-08T20:08:25+09:00</updated><id>http://localhost:4000/2024/02/08/1167_TreeRadius</id><content type="html" xml:base="http://localhost:4000/2024/02/08/1167_TreeRadius/"><![CDATA[<h1 id="트리의-지름-골드-2">트리의 지름 골드 2</h1>
+<h2 id="3-proposed-methods">3. Proposed methods</h2>
+
+<p>UDA에서는 source 도메인으로부터 label이 지정된 데이터 
+\( X^{s} = {(x_i^s, y_i^s)}^{N_s}_{i=1}\) 가 주어지고,</p>
+
+<p>target 도메인으로부터 label이 지정되지 않은 데이터
+\( X^{t} = {(x_i^t)}^{N_t}_{i=1}\) 가 주어진다.</p>
+
+<p>Ns와 Nt는 각각 Xs와 Xt의 크기를 나타낸다.
+이 논문의 목표는 source 도메인에서 학습한 지식이 target 도메인에서 잘 일반화되도록 하는 것이다.</p>
+
+<h3 id="31-fixed-ratio-based-mixup">3.1 Fixed Ratio-based Mixup</h3>
+<p>기존 믹스업의 문제점:</p>
+
+<ul>
+  <li>기존 믹스업에서는 랜덤하게 생성된 비율로 source 데이터와 target 데이터를 혼합하여 가상 샘플을 생성한다.</li>
+  <li>이는 도메인 간 격차를 고려하지 않고 가상 샘플을 만드기 때문에 모델 성능 향상에 한계가 있다.</li>
+</ul>
+
+<p>제안된 고정 비율 믹스업:</p>
+
+<ul>
+  <li>본 논문에서는 랜덤 비율 대신 <strong>고정 비율 (λsd, λtd)</strong>을 사용하여 가상 샘플을 생성한다.</li>
+  <li>이 고정 비율은 source 데이터와 target 데이터의 중요도를 반영한다.</li>
+  <li>또한 두 개의 다른 믹스업 비율을 사용하여 <strong>source 우세 모델 (SDM)</strong>과 <strong>target 우세 모델 (TDM)</strong>이라는 두 가지 네트워크를 생성한다.</li>
+  <li>SDM은 source 데이터에 더 강한 영향을 받아 학습되고, TDM은 target 데이터에 더 강한 영향을 받아 학습된다.</li>
+</ul>
+
+<p>입력 샘플 쌍과 source 및 target 도메인의 해당 one-hot labels\( (x^s_i, y_i^s) \)이 주어지면 mixup setting은 다음과 같이 정의됩니다:</p>
+
+\[\widetilde{x}^{st}_i = \lambda x^{s}_i + (1-\lambda)x^{t}_i\]
+
+\[\widetilde{y}^{st}_i = \lambda y^{s}_i + (1-\lambda)\hat{y}^{t}_i\]
+
+<p>그리고 \(p(y\| \widetilde{x}^{st}_i)\)를 입력 \(\widetilde{x}^{st}_i\)에 대한 모델에 의해 생성된 예측된 클래스 분포라고 하자. 그러면 fixed ratio-based mixip은 다음과 같이 정의된다.</p>
+
+\[L_{fm} = \frac{1}{B} \sum_{i=1}^{B} \widetilde{y}^{st}_i log(p(y\\| \widetilde{x}^{st}_i))\]
+
+<h3 id="32-confidence-based-learning">3.2 Confidence-based learning</h3>
+
+<p>상호 보완 학습:</p>
+
+<ul>
+  <li>고정 비율 믹스업으로 생성된 두 모델은 서로 다른 특징을 가지고 학습된다.</li>
+  <li>이러한 서로 다른 특징은 서로 보완적인 학습을 가능하게 한다.</li>
+</ul>
+
+<p>신뢰도 기반 학습:</p>
+
+<ul>
+  <li>한 모델은 긍정적 의사 라벨을 사용하여 다른 모델을 가르치고, 부정적 의사 라벨을 사용하여 자기 자신을 학습한다.</li>
+</ul>
+
+<p>양방향 매칭:</p>
+
+<ul>
+  <li>모델 중 하나가 특정 임계값 이상의 확률로 클래스를 예측하면 이를 긍정적 의사 라벨로 사용한다.</li>
+  <li>긍정적 의사 라벨을 이용하여 서로 다른 모델의 예측이 일치하도록 학습한다.</li>
+</ul>
+
+\[L_{bim} = \frac{1}{B} \sum_{i=1}^{B} max(p(y\\| \widetilde{x}^{t}_i)&gt;\tau) \widetilde{y}^{t}_i log(q(y\\| x^{t}_i))\]
+
+<p>self penalization:</p>
+
+<ul>
+  <li>부정적 의사 라벨 (확률 낮은 최고 예측 클래스)을 사용하여 각 모델이 예측 오류를 줄이도록 학습한다.</li>
+</ul>
+
+\[L_{sp} = \frac{1}{B} \sum_{i=1}^{B} max(p(y\\| \widetilde{x}^{t}_i)&gt;\tau) \widetilde{y}^{t}_i log(1 - p(y\\| x^{t}_i))\]
+
+<p>낮은 확률 예측 활용:</p>
+
+<ul>
+  <li>일반적으로 낮은 확률 예측은 신뢰성이 낮으나, 이 논문에서는 이러한 예측도 학습에 활용한다.</li>
+</ul>
+
+<p>적응적 임계값:</p>
+
+<ul>
+  <li>긍정적/부정적 의사 라벨을 구분하는 임계값을 고정 값 대신 미니배치 데이터의 평균과 표준편차를 이용하여 동적으로 조정한다.</li>
+</ul>
+
+<h3 id="33-consistency-regularization">3.3 Consistency Regularization</h3>
+
+<p>신뢰도 기반 학습을 통해 더 정확한 의사 라벨을 가지고 학습함으로써 두 모델이 target 영역에 더 가까워진다.
+새로운 일치성 정규화는 두 모델 모두 안정적으로 수렴하도록 한다.
+잘 학습된 모델은 같은 공간에서 일관된 결과를 보여야 한다는 가정을 기반으로 한다.
+이는 서로 다른 도메인에서 학습된 두 모델이 source와 target 도메인 사이의 중간 공간에서 일관성을 유지하도록 하여 도메인 간 연결을 구축한다.
+중간 공간에서는 고정 믹스업 비율 λsd와 λtd가 모두 0.5로 설정된다.
+일치성 정규화 손실 함수는 다음과 같이 정의된다.</p>
+
+\[L_{cr} = \frac{1}{B} \sum_{i=1}^{B} || p(y\\| \widetilde{x}^{st}_i) - q(y\\| \widetilde{x}^{st}_i) ||^{2}_2\]]]></content><author><name>Hun</name></author><category term="Paper" /><category term="Domain Adaptation" /><summary type="html"><![CDATA[저자 : Wonjun Hwang]]></summary></entry><entry><title type="html">백준 트리의 지름(1167) [c++]</title><link href="http://localhost:4000/2024/02/08/1167_TreeRadius/" rel="alternate" type="text/html" title="백준 트리의 지름(1167) [c++]" /><published>2024-02-08T20:00:00+09:00</published><updated>2024-02-08T20:08:25+09:00</updated><id>http://localhost:4000/2024/02/08/1167_TreeRadius</id><content type="html" xml:base="http://localhost:4000/2024/02/08/1167_TreeRadius/"><![CDATA[<h1 id="트리의-지름-골드-2">트리의 지름 골드 2</h1>
 
 <h2 id="문제">문제</h2>
 <p>트리의 지름이란, 트리에서 임의의 두 점 사이의 거리 중 가장 긴 것을 말한다. 트리의 지름을 구하는 프로그램을 작성하시오.</p>
@@ -228,78 +486,7 @@
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">c_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="greedy" /><summary type="html"><![CDATA[동전0 실버 4]]></summary></entry><entry><title type="html">백준 쉬운 계단수 [c++]</title><link href="http://localhost:4000/2024/02/07/10844_%EC%89%AC%EC%9A%B4%EA%B3%84%EB%8B%A8%EC%88%98/" rel="alternate" type="text/html" title="백준 쉬운 계단수 [c++]" /><published>2024-02-07T00:18:00+09:00</published><updated>2024-02-06T02:08:25+09:00</updated><id>http://localhost:4000/2024/02/07/10844_%EC%89%AC%EC%9A%B4%EA%B3%84%EB%8B%A8%EC%88%98</id><content type="html" xml:base="http://localhost:4000/2024/02/07/10844_%EC%89%AC%EC%9A%B4%EA%B3%84%EB%8B%A8%EC%88%98/"><![CDATA[<h1 id="쉬운계단수-실버1">쉬운계단수 실버1</h1>
-
-<h2 id="문제">문제</h2>
-<p>45656이란 수를 보자.</p>
-
-<p>이 수는 인접한 모든 자리의 차이가 1이다. 이런 수를 계단 수라고 한다.</p>
-
-<p>N이 주어질 때, 길이가 N인 계단 수가 총 몇 개 있는지 구해보자. 0으로 시작하는 수는 계단수가 아니다.</p>
-
-<h2 id="입력">입력</h2>
-<p>첫째 줄에 N이 주어진다. N은 1보다 크거나 같고, 100보다 작거나 같은 자연수이다.</p>
-
-<h2 id="출력">출력</h2>
-<p>첫째 줄에 정답을 1,000,000,000으로 나눈 나머지를 출력한다.</p>
-
-<h1 id="풀이">풀이</h1>
-<ul>
-  <li>이전 자리수가 0일경우 다음 자리수에 1만 올 수 있고, 이전 자리수가 9일경우 다음 자리수에 8만 올 수 있다.</li>
-  <li>반면 그 외 1~8까지는 각각 2개씩 올 수 있다.</li>
-  <li>0~9까지 배열을 한 자리의 dp로 생각하고 해결.</li>
-</ul>
-
-<h1 id="코드">코드</h1>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="mi">102</span><span class="p">][</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="p">};</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-            <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-                <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="mi">1000000000</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">9</span><span class="p">){</span>
-                <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">8</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">9</span><span class="p">]</span> <span class="o">%</span> <span class="mi">1000000000</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
-                <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="mi">1000000000</span><span class="p">;</span>
-                <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="mi">1000000000</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    
-    <span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">sum</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
-    <span class="p">}</span>
-
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sum</span> <span class="o">%</span> <span class="mi">1000000000</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<h1 id="총평">총평</h1>
-<ul>
-  <li>1~3자리까지 트리로 그려보면 쉽게 해결가능.</li>
-</ul>]]></content><author><name>Hun</name></author><category term="PS" /><category term="DP" /><summary type="html"><![CDATA[쉬운계단수 실버1]]></summary></entry><entry><title type="html">백준 카드 구매하기 [c++]</title><link href="http://localhost:4000/2024/02/07/11052_buyCard/" rel="alternate" type="text/html" title="백준 카드 구매하기 [c++]" /><published>2024-02-07T00:18:00+09:00</published><updated>2024-02-06T02:08:25+09:00</updated><id>http://localhost:4000/2024/02/07/11052_buyCard</id><content type="html" xml:base="http://localhost:4000/2024/02/07/11052_buyCard/"><![CDATA[<h1 id="11052-카드-구매하기-실버1">11052 카드 구매하기 실버1</h1>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="greedy" /><summary type="html"><![CDATA[동전0 실버 4]]></summary></entry><entry><title type="html">백준 카드 구매하기 [c++]</title><link href="http://localhost:4000/2024/02/07/11052_buyCard/" rel="alternate" type="text/html" title="백준 카드 구매하기 [c++]" /><published>2024-02-07T00:18:00+09:00</published><updated>2024-02-06T02:08:25+09:00</updated><id>http://localhost:4000/2024/02/07/11052_buyCard</id><content type="html" xml:base="http://localhost:4000/2024/02/07/11052_buyCard/"><![CDATA[<h1 id="11052-카드-구매하기-실버1">11052 카드 구매하기 실버1</h1>
 
 <h2 id="문제">문제</h2>
 <p>요즘 민규네 동네에서는 스타트링크에서 만든 PS카드를 모으는 것이 유행이다.</p>

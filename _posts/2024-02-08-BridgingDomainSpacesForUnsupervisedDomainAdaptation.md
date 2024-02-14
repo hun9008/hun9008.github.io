@@ -1,13 +1,14 @@
 ---
 layout: post
-title: Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]
+title: FixBi-Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]
 author: Hun
 tags:
 - Paper
 - Domain Adaptation
 date: 2024-02-08 20:18 +0800
-last_modified_at: 2024-02-09 20:18:25 +0800
+last_modified_at: 2024-02-13 20:18:25 +0800
 toc: true
+math: true
 ---
 
 저자 : Wonjun Hwang
@@ -85,3 +86,89 @@ SSDA(semi supervised domain adaptation)에 비해 UDA는 더 많은 target lable
 
 ## 3. Proposed methods
 
+UDA에서는 source 도메인으로부터 label이 지정된 데이터 
+\\\( X^{s} = {(x_i^s, y_i^s)}^{N_s}_{i=1}\\\) 가 주어지고, 
+
+target 도메인으로부터 label이 지정되지 않은 데이터
+\\\( X^{t} = {(x_i^t)}^{N_t}_{i=1}\\\) 가 주어진다.
+
+Ns와 Nt는 각각 Xs와 Xt의 크기를 나타낸다.
+이 논문의 목표는 source 도메인에서 학습한 지식이 target 도메인에서 잘 일반화되도록 하는 것이다.
+
+### 3.1 Fixed Ratio-based Mixup
+기존 믹스업의 문제점:
+
+- 기존 믹스업에서는 랜덤하게 생성된 비율로 source 데이터와 target 데이터를 혼합하여 가상 샘플을 생성한다.
+- 이는 도메인 간 격차를 고려하지 않고 가상 샘플을 만드기 때문에 모델 성능 향상에 한계가 있다.
+
+제안된 고정 비율 믹스업:
+
+- 본 논문에서는 랜덤 비율 대신 **고정 비율 (λsd, λtd)**을 사용하여 가상 샘플을 생성한다.
+- 이 고정 비율은 source 데이터와 target 데이터의 중요도를 반영한다.
+- 또한 두 개의 다른 믹스업 비율을 사용하여 **source 우세 모델 (SDM)**과 **target 우세 모델 (TDM)**이라는 두 가지 네트워크를 생성한다.
+- SDM은 source 데이터에 더 강한 영향을 받아 학습되고, TDM은 target 데이터에 더 강한 영향을 받아 학습된다.
+
+입력 샘플 쌍과 source 및 target 도메인의 해당 one-hot labels\\\( (x^s_i, y_i^s) \\\)이 주어지면 mixup setting은 다음과 같이 정의됩니다:
+
+$$
+\widetilde{x}^{st}_i = \lambda x^{s}_i + (1-\lambda)x^{t}_i 
+$$
+
+$$
+\widetilde{y}^{st}_i = \lambda y^{s}_i + (1-\lambda)\hat{y}^{t}_i 
+$$
+
+그리고 \\\(p(y\\| \widetilde{x}^{st}_i)\\\)를 입력 \\\(\widetilde{x}^{st}_i\\\)에 대한 모델에 의해 생성된 예측된 클래스 분포라고 하자. 그러면 fixed ratio-based mixip은 다음과 같이 정의된다.
+
+$$
+L_{fm} = \frac{1}{B} \sum_{i=1}^{B} \widetilde{y}^{st}_i log(p(y\\| \widetilde{x}^{st}_i))
+$$
+
+### 3.2 Confidence-based learning
+
+상호 보완 학습:
+
+- 고정 비율 믹스업으로 생성된 두 모델은 서로 다른 특징을 가지고 학습된다.
+- 이러한 서로 다른 특징은 서로 보완적인 학습을 가능하게 한다.
+
+신뢰도 기반 학습:
+
+- 한 모델은 긍정적 의사 라벨을 사용하여 다른 모델을 가르치고, 부정적 의사 라벨을 사용하여 자기 자신을 학습한다.
+
+양방향 매칭:
+
+- 모델 중 하나가 특정 임계값 이상의 확률로 클래스를 예측하면 이를 긍정적 의사 라벨로 사용한다.
+- 긍정적 의사 라벨을 이용하여 서로 다른 모델의 예측이 일치하도록 학습한다.
+
+$$
+L_{bim} = \frac{1}{B} \sum_{i=1}^{B} max(p(y\\| \widetilde{x}^{t}_i)>\tau) \widetilde{y}^{t}_i log(q(y\\| x^{t}_i))
+$$
+
+self penalization:
+
+- 부정적 의사 라벨 (확률 낮은 최고 예측 클래스)을 사용하여 각 모델이 예측 오류를 줄이도록 학습한다.
+
+$$
+L_{sp} = \frac{1}{B} \sum_{i=1}^{B} max(p(y\\| \widetilde{x}^{t}_i)>\tau) \widetilde{y}^{t}_i log(1 - p(y\\| x^{t}_i))
+$$
+
+낮은 확률 예측 활용:
+
+- 일반적으로 낮은 확률 예측은 신뢰성이 낮으나, 이 논문에서는 이러한 예측도 학습에 활용한다.
+
+적응적 임계값:
+
+- 긍정적/부정적 의사 라벨을 구분하는 임계값을 고정 값 대신 미니배치 데이터의 평균과 표준편차를 이용하여 동적으로 조정한다.
+
+### 3.3 Consistency Regularization
+
+신뢰도 기반 학습을 통해 더 정확한 의사 라벨을 가지고 학습함으로써 두 모델이 target 영역에 더 가까워진다.
+새로운 일치성 정규화는 두 모델 모두 안정적으로 수렴하도록 한다.
+잘 학습된 모델은 같은 공간에서 일관된 결과를 보여야 한다는 가정을 기반으로 한다.
+이는 서로 다른 도메인에서 학습된 두 모델이 source와 target 도메인 사이의 중간 공간에서 일관성을 유지하도록 하여 도메인 간 연결을 구축한다.
+중간 공간에서는 고정 믹스업 비율 λsd와 λtd가 모두 0.5로 설정된다.
+일치성 정규화 손실 함수는 다음과 같이 정의된다.
+
+$$
+L_{cr} = \frac{1}{B} \sum_{i=1}^{B} || p(y\\| \widetilde{x}^{st}_i) - q(y\\| \widetilde{x}^{st}_i) ||^{2}_2
+$$
