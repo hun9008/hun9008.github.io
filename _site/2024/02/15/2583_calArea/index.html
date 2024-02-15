@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>백준 영역 구하기 [c++] | console.log(‘HUN’)</title>
+<meta name="generator" content="Jekyll v3.9.4" />
+<meta property="og:title" content="백준 영역 구하기 [c++]" />
+<meta name="author" content="Hun" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="2583 영역 구하기 실버 1" />
+<meta property="og:description" content="2583 영역 구하기 실버 1" />
+<link rel="canonical" href="http://localhost:4000/2024/02/15/2583_calArea/" />
+<meta property="og:url" content="http://localhost:4000/2024/02/15/2583_calArea/" />
+<meta property="og:site_name" content="console.log(‘HUN’)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-02-15T12:18:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="백준 영역 구하기 [c++]" />
+<meta name="twitter:site" content="@vszhub" />
+<meta name="twitter:creator" content="@Hun" />
+<meta name="google-site-verification" content="xxxxx" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hun"},"dateModified":"2024-02-15T13:08:25+09:00","datePublished":"2024-02-15T12:18:00+09:00","description":"2583 영역 구하기 실버 1","headline":"백준 영역 구하기 [c++]","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/02/15/2583_calArea/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"},"name":"Hun"},"url":"http://localhost:4000/2024/02/15/2583_calArea/"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="console.log('HUN')" />
+</head>
+
+
+  <body>
+
+    <div class="container pure-g"><div class="sidebar-left pure-u-1 pure-u-md-1-4" style="background-color: rgb(40, 73, 77); color: rgb(255, 255, 255); background-image: url(/bg.jpeg);"><header class="masthead">
+  <div class="avatar"><img src="/avatar.jpeg" class="avatar-image" alt="Hun">
+    </div>
+  <div class="masthead-title">
+    <a href="/" title="Home">console.log('HUN')</a>
+  </div>
+  <div class="masthead-tagline">
+    <small>J.Y.Hun's Devlog</small>
+  </div><nav class="navigation">
+    <ul class="navigation-list"><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/">Blog</a>
+      </li><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/about/">Profile</a>
+      </li></ul>
+  </nav><div class="social pure-menu pure-menu-horizontal">
+      <ul class="social-icons pure-menu-list">
+      <li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="mailto://younghune135@gmail.com">
+            <i class="fas fa-envelope" title="Email"></i>
+          </a>
+        </li><li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="https://github.com/hun9008">
+            <i class="fab fa-github" title="GitHub"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+</header>
+</div>
+
+      <div class="content pure-u-1 pure-u-md-1-2"><main>
+  <article class="post">
+  <h1 class="post-title">백준 영역 구하기 [c++]</h1>
+  <div class="post-meta"><time datetime="2024-02-15T12:18:00+09:00" itemprop="datePublished">15 Feb 2024</time><span> ~ </span><time datetime="2024-02-15T13:08:25+09:00" itemprop="dateModified">
+        15 Feb 2024
+      </time><span> • </span>
+      
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+          Hun
+        </span></div>
+
+  <h1 id="2583-영역-구하기-실버-1">2583 영역 구하기 실버 1</h1>
+
+<h2 id="문제">문제</h2>
+<p>눈금의 간격이 1인 M×N(M,N≤100)크기의 모눈종이가 있다. 이 모눈종이 위에 눈금에 맞추어 K개의 직사각형을 그릴 때, 이들 K개의 직사각형의 내부를 제외한 나머지 부분이 몇 개의 분리된 영역으로 나누어진다.</p>
+
+<p>예를 들어 M=5, N=7 인 모눈종이 위에 &lt;그림 1&gt;과 같이 직사각형 3개를 그렸다면, 그 나머지 영역은 &lt;그림 2&gt;와 같이 3개의 분리된 영역으로 나누어지게 된다.</p>
+
+<p>&lt;그림 2&gt;와 같이 분리된 세 영역의 넓이는 각각 1, 7, 13이 된다.</p>
+
+<p>M, N과 K 그리고 K개의 직사각형의 좌표가 주어질 때, K개의 직사각형 내부를 제외한 나머지 부분이 몇 개의 분리된 영역으로 나누어지는지, 그리고 분리된 각 영역의 넓이가 얼마인지를 구하여 이를 출력하는 프로그램을 작성하시오.</p>
+
+<h2 id="입력">입력</h2>
+<p>첫째 줄에 M과 N, 그리고 K가 빈칸을 사이에 두고 차례로 주어진다. M, N, K는 모두 100 이하의 자연수이다. 둘째 줄부터 K개의 줄에는 한 줄에 하나씩 직사각형의 왼쪽 아래 꼭짓점의 x, y좌표값과 오른쪽 위 꼭짓점의 x, y좌표값이 빈칸을 사이에 두고 차례로 주어진다. 모눈종이의 왼쪽 아래 꼭짓점의 좌표는 (0,0)이고, 오른쪽 위 꼭짓점의 좌표는(N,M)이다. 입력되는 K개의 직사각형들이 모눈종이 전체를 채우는 경우는 없다.</p>
+
+<h2 id="출력">출력</h2>
+<p>첫째 줄에 분리되어 나누어지는 영역의 개수를 출력한다. 둘째 줄에는 각 영역의 넓이를 오름차순으로 정렬하여 빈칸을 사이에 두고 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+<ul>
+  <li>입력으로 받는 두 좌표에 해당하는 영역을 visited = 1로 설정해주고 bfs를 진행했다.</li>
+  <li>(0,0)이 좌측 하단에 위치해 영역이 상하반전 되어있음에 주의해야 함.</li>
+  <li>BFS에서 x와 y의 좌표에 주의하면 일반적인 BFS문제.</li>
+</ul>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">visited</span><span class="p">[</span><span class="mi">101</span><span class="p">][</span><span class="mi">101</span><span class="p">];</span>
+
+<span class="kt">int</span> <span class="n">dir</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">}};</span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">area</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">101</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">101</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">sq</span><span class="p">(</span><span class="kt">int</span> <span class="n">LX</span><span class="p">,</span> <span class="kt">int</span> <span class="n">LY</span><span class="p">,</span> <span class="kt">int</span> <span class="n">RX</span><span class="p">,</span> <span class="kt">int</span> <span class="n">RY</span><span class="p">){</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">LY</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">RY</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">LX</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">RX</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b1</span><span class="p">){</span>
+    <span class="n">queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">b1</span><span class="p">));</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">b1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+        <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+ 
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">n_x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dir</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+            <span class="kt">int</span> <span class="n">n_y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dir</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">n_x</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">n_x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">n_y</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="o">&amp;&amp;</span> <span class="n">n_y</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">n_y</span><span class="p">][</span><span class="n">n_x</span><span class="p">]){</span>
+                    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">));</span>
+                    <span class="n">visited</span><span class="p">[</span><span class="n">n_y</span><span class="p">][</span><span class="n">n_x</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                    <span class="n">size</span><span class="o">++</span><span class="p">;</span> <span class="c1">//영역넓이 + 1</span>
+                <span class="p">}</span>
+            <span class="p">}</span> 
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">area</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">print_visit</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">init</span><span class="p">();</span>
+
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">m</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">k</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">lx</span><span class="p">,</span><span class="n">ly</span><span class="p">,</span><span class="n">rx</span><span class="p">,</span><span class="n">ry</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">lx</span> <span class="o">&gt;&gt;</span> <span class="n">ly</span> <span class="o">&gt;&gt;</span> <span class="n">rx</span> <span class="o">&gt;&gt;</span> <span class="n">ry</span><span class="p">;</span>
+        <span class="n">sq</span><span class="p">(</span><span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// print_visit();</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                <span class="c1">// cout &lt;&lt; "pos" &lt;&lt; i &lt;&lt; " " &lt;&lt; j &lt;&lt; endl;</span>
+                <span class="n">bfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span>
+                <span class="c1">// print_visit();</span>
+                <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">cnt</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">area</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">area</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">area</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">area</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+
+  
+    
+      <div class="post-tags-section">
+  <i class="post-tags-icon fas fa-tags"></i>
+  <ul class="post-tags"><li>
+        <a class="post-tag" href="/tags/#ps">ps</a></li><li>
+        <a class="post-tag" href="/tags/#bfs">bfs</a></li></ul>
+</div>
+
+  
+
+  
+</article>
+
+
+<aside class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <a href="/2024/02/15/GoingDeeperWithConvolutions/">
+          Going Deeper with convolutions [논문]
+          <small><time datetime="2024-02-15T01:18:00+09:00">15 Feb 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/02/09/1890_Jump/">
+          백준 점프 [c++]
+          <small><time datetime="2024-02-09T16:00:00+09:00">09 Feb 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/">
+          FixBi-Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]
+          <small><time datetime="2024-02-08T21:18:00+09:00">08 Feb 2024</time></small>
+        </a>
+      </li>
+    
+  </ul>
+</aside>
+
+
+</main>
+
+<footer class="footer"><small>
+    &copy; 2020&nbsp;-&nbsp;2024 <a href="https://github.com/hun9008/">Hun</a>. All rights reserved.
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://github.com/vszhub/not-pure-poole">Not Pure Poole</a>.
+  </small>
+</footer>
+</div>
+      <div class="sidebar-right pure-u-1 pure-u-md-1-4">
+<div  class="toc-wrapper">
+  <h2 class="toc-title">Table of Contents</h2>
+    <nav class="toc-nav">
+      <ul class="toc">
+  <li><a href="#문제">문제</a></li>
+  <li><a href="#입력">입력</a></li>
+  <li><a href="#출력">출력</a></li>
+  <li><a href="#풀이">풀이</a></li>
+  <li><a href="#코드">코드</a></li>
+</ul>
+
+  </nav>
+</div>
+
+</div>
+    </div>
+
+    <script async src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script><script>
+  function strip(str, remove) {
+    while (str.length > 0 && remove.indexOf(str.charAt(0)) != -1) {
+      str = str.substr(1);
+    }
+    while (str.length > 0 && remove.indexOf(str.charAt(str.length - 1)) != -1) {
+      str = str.substr(0, str.length - 1);
+    }
+    return str;
+  }
+
+  function scroll() {
+    console.log('scroll');
+    window.scrollTo({
+      left: 0, 
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+    sessionStorage.removeItem('forceCheckScroll');
+  }
+
+  const forceCheckScroll = sessionStorage.getItem('forceCheckScroll') === 'true';
+  const checkScroll = strip(window.location.pathname, '/') !== strip('', '/');
+
+  if (forceCheckScroll || checkScroll) {
+    const maxWidth = "(max-width: 48rem)";
+    const result = window.matchMedia(maxWidth);
+    if (result.matches) {
+      scroll();
+    } else {
+      result.addListener((match) => {
+        if (match.media == maxWidth) {
+          if (match.matches) {
+            scroll();
+          }
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>

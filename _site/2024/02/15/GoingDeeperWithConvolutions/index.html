@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Going Deeper with convolutions [논문] | console.log(‘HUN’)</title>
+<meta name="generator" content="Jekyll v3.9.4" />
+<meta property="og:title" content="Going Deeper with convolutions [논문]" />
+<meta name="author" content="Hun" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="저자 : Christian Szegedy 등등" />
+<meta property="og:description" content="저자 : Christian Szegedy 등등" />
+<link rel="canonical" href="http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions/" />
+<meta property="og:url" content="http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions/" />
+<meta property="og:site_name" content="console.log(‘HUN’)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-02-15T01:18:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Going Deeper with convolutions [논문]" />
+<meta name="twitter:site" content="@vszhub" />
+<meta name="twitter:creator" content="@Hun" />
+<meta name="google-site-verification" content="xxxxx" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hun"},"dateModified":"2024-02-15T02:08:25+09:00","datePublished":"2024-02-15T01:18:00+09:00","description":"저자 : Christian Szegedy 등등","headline":"Going Deeper with convolutions [논문]","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"},"name":"Hun"},"url":"http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions/"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="console.log('HUN')" />
+</head>
+
+
+  <body>
+
+    <div class="container pure-g"><div class="sidebar-left pure-u-1 pure-u-md-1-4" style="background-color: rgb(40, 73, 77); color: rgb(255, 255, 255); background-image: url(/bg.jpeg);"><header class="masthead">
+  <div class="avatar"><img src="/avatar.jpeg" class="avatar-image" alt="Hun">
+    </div>
+  <div class="masthead-title">
+    <a href="/" title="Home">console.log('HUN')</a>
+  </div>
+  <div class="masthead-tagline">
+    <small>J.Y.Hun's Devlog</small>
+  </div><nav class="navigation">
+    <ul class="navigation-list"><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/">Blog</a>
+      </li><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/about/">Profile</a>
+      </li></ul>
+  </nav><div class="social pure-menu pure-menu-horizontal">
+      <ul class="social-icons pure-menu-list">
+      <li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="mailto://younghune135@gmail.com">
+            <i class="fas fa-envelope" title="Email"></i>
+          </a>
+        </li><li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="https://github.com/hun9008">
+            <i class="fab fa-github" title="GitHub"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+</header>
+</div>
+
+      <div class="content pure-u-1 pure-u-md-1-2"><main>
+  <article class="post">
+  <h1 class="post-title">Going Deeper with convolutions [논문]</h1>
+  <div class="post-meta"><time datetime="2024-02-15T01:18:00+09:00" itemprop="datePublished">15 Feb 2024</time><span> ~ </span><time datetime="2024-02-15T02:08:25+09:00" itemprop="dateModified">
+        15 Feb 2024
+      </time><span> • </span>
+      
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+          Hun
+        </span></div>
+
+  <p>저자 : Christian Szegedy 등등</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>GoogLeNet의 특징</p>
+<ul>
+  <li>연산을 하는 데 소모되는 자원의 사용 효율이 개선되었다.</li>
+  <li>Inception은 GoogLeNet의 코드네임.</li>
+</ul>
+
+<p>딥러닝의 발전 동향이 더 좋은 하드웨어의 성능, 더 큰 dataset, 더 큰 모델 때문이기 보다는 새로운 아이디어와 알고리즘, 그리고 개선된 신경망 구조 덕분이다라고 언급.</p>
+
+<p>GoogLeNet은 AlexNet보다 파라미터가 12배나 더 적음에도 불구하고 훨씬 정확했다고 함. 이런 개선은 R-CNN과 같이 deep한 구조와 클래식한 컴퓨터 비전의 시너지 덕분이다.</p>
+
+<p>Mobile 및 Embedded 환경에서는 특히 전력 및 메모리 사용량 관점에서 효율적인 알고리즘의 중요성이 대두되고 있기에, 이 논문에서는 모델이 엄격한 고정된 구조를 가지는 것보다 유연한 구조를 가지게끔 한다. 또한 추론 시간에 1.5B 이하의 연산만을 수행하도록 설계했다.</p>
+
+<p>GoogLeNet의 코드네임인 Inception은 영화 인셉션에 “we need to go deeper”에서 유래했고 여기서 deep은 두가지 의미를 가짐.</p>
+<ol>
+  <li>“Inception module”의 형태로 새로운 차원의 구조 도입</li>
+  <li>두 번째는 네트워크의 깊이가 증가하였다는 직접적인 의미</li>
+</ol>
+
+<h2 id="related-work">Related Work</h2>
+
+
+
+  
+    
+      <div class="post-tags-section">
+  <i class="post-tags-icon fas fa-tags"></i>
+  <ul class="post-tags"><li>
+        <a class="post-tag" href="/tags/#paper">paper</a></li><li>
+        <a class="post-tag" href="/tags/#googlenet">googlenet</a></li><li>
+        <a class="post-tag" href="/tags/#inception">inception</a></li></ul>
+</div>
+
+  
+
+  
+</article>
+
+
+<aside class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <a href="/2024/02/15/2583_calArea/">
+          백준 영역 구하기 [c++]
+          <small><time datetime="2024-02-15T12:18:00+09:00">15 Feb 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/02/09/1890_Jump/">
+          백준 점프 [c++]
+          <small><time datetime="2024-02-09T16:00:00+09:00">09 Feb 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/">
+          FixBi-Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]
+          <small><time datetime="2024-02-08T21:18:00+09:00">08 Feb 2024</time></small>
+        </a>
+      </li>
+    
+  </ul>
+</aside>
+
+
+</main>
+
+<footer class="footer"><small>
+    &copy; 2020&nbsp;-&nbsp;2024 <a href="https://github.com/hun9008/">Hun</a>. All rights reserved.
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://github.com/vszhub/not-pure-poole">Not Pure Poole</a>.
+  </small>
+</footer>
+</div>
+      <div class="sidebar-right pure-u-1 pure-u-md-1-4">
+<div  class="toc-wrapper">
+  <h2 class="toc-title">Table of Contents</h2>
+    <nav class="toc-nav">
+      <ul class="toc">
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#related-work">Related Work</a></li>
+</ul>
+
+  </nav>
+</div>
+
+</div>
+    </div>
+
+    <script async src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script><script>
+  function strip(str, remove) {
+    while (str.length > 0 && remove.indexOf(str.charAt(0)) != -1) {
+      str = str.substr(1);
+    }
+    while (str.length > 0 && remove.indexOf(str.charAt(str.length - 1)) != -1) {
+      str = str.substr(0, str.length - 1);
+    }
+    return str;
+  }
+
+  function scroll() {
+    console.log('scroll');
+    window.scrollTo({
+      left: 0, 
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+    sessionStorage.removeItem('forceCheckScroll');
+  }
+
+  const forceCheckScroll = sessionStorage.getItem('forceCheckScroll') === 'true';
+  const checkScroll = strip(window.location.pathname, '/') !== strip('', '/');
+
+  if (forceCheckScroll || checkScroll) {
+    const maxWidth = "(max-width: 48rem)";
+    const result = window.matchMedia(maxWidth);
+    if (result.matches) {
+      scroll();
+    } else {
+      result.addListener((match) => {
+        if (match.media == maxWidth) {
+          if (match.matches) {
+            scroll();
+          }
+        }
+      });
+    }
+  }
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
