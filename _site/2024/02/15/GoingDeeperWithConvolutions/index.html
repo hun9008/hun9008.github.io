@@ -99,6 +99,41 @@
 
 <h2 id="related-work">Related Work</h2>
 
+<p>LeNet-5을 시작으로 CNN은 일반적인 표준 구조를 가지는데, Convolutional layer가 쌓이고 그 뒤에 1개 또는 그 이상의 FC layer가 따라오는 구조이다. 또한 대용량 데이터에서 layer 수와 사이즈를 늘리고, overfitting을 피하기 위해 dropout을 적용한다.</p>
+
+<p>GoogLeNet도 이와 같은 구조를 가진다.</p>
+
+<p>Network-in-Network : 1 X 1 Convolutional layer를 사용해 네트워크의 표현력을 증가시키고 계산 효율성을 높이는 접근 방법이다.
+이 방법은 1 X 1 Convolutional layer가 추가되며, ReLU activation이 뒤따른다.</p>
+
+<p>이때, 1 X 1 Convolutional layer의 목적은 2가지로 이 이유로 GoogLeNet에서 사용된다.</p>
+
+<ol>
+  <li>병목현상을 제거하기 위한 차원 축소</li>
+  <li>네트워크 크기 제안한다</li>
+</ol>
+
+<details>
+<summary>
+Network-in-Network에서는 왜 1 X 1 Convolutional layer를 사용했고, 이는 어떻게 위 두가지 장점을 가지게 되는가?
+</summary>
+
+<br />
+<img src="/GoogLeNet_11Convolution.png" />
+
+NIN(Network-in-Network)에서는 CCCP(Casecaded Cross Channel Pooling)이란 기법이 사용되었다. <br />이는 하나의 feature map에 대해 수행하는 일반적인 pooling 기법과 달리 channel을 직렬로 묶어 픽셀 별로 pooling을 수행하는 것으로, feature map의 크기는 그대로이고, channel의 수만 줄어들게 하여 차원 축소의 효과가 있다. 
+<br /><br />
+CCCP 작동 방식:
+<br /><br />
+1. 채널 직렬 연결: 먼저, 서로 연관성이 높은 채널들을 그룹화하여 직렬로 연결합니다.<br />
+2. 픽셀별 풀링: 각 채널 그룹에 대해 픽셀별 최대 풀링 또는 평균 풀링을 수행합니다.<br />
+3. 채널 축소: 풀링 결과를 통해 채널 수를 줄여 계산 효율성을 높입니다.(3D -&gt; 1D)<br />
+4. 다단계 풀링: 위의 과정을 여러 단계 반복하여 더욱 강력한 특징 추출을 수행합니다.<br /><br />
+
+그런데 이 CCCP 기법은 1 x 1 Convolutional layer과 그 연산 방식 및 효과가 매우 유사하다. 따라서 GoogLeNet에서 1 x 1 Convolutional layer를 Inception module에 적용한 것이다.
+</details>
+
+<h2 id="motivation-and-high-level-considerations">Motivation and High Level Considerations</h2>
 
 
   
@@ -122,23 +157,23 @@
   <ul class="related-posts">
     
       <li>
-        <a href="/2024/02/15/2583_calArea/">
-          백준 영역 구하기 [c++]
-          <small><time datetime="2024-02-15T12:18:00+09:00">15 Feb 2024</time></small>
+        <a href="/2024/02/16/2294_coin2/">
+          백준 동전 2 [c++]
+          <small><time datetime="2024-02-16T15:18:00+09:00">16 Feb 2024</time></small>
         </a>
       </li>
     
       <li>
-        <a href="/2024/02/09/1890_Jump/">
-          백준 점프 [c++]
-          <small><time datetime="2024-02-09T16:00:00+09:00">09 Feb 2024</time></small>
+        <a href="/2024/02/16/4803_tree/">
+          백준 트리_4803 [c++]
+          <small><time datetime="2024-02-16T13:18:00+09:00">16 Feb 2024</time></small>
         </a>
       </li>
     
       <li>
-        <a href="/2024/02/08/BridgingDomainSpacesForUnsupervisedDomainAdaptation/">
-          FixBi-Bridging Domain Spaces for Unsupervised Domain Adaptation [논문]
-          <small><time datetime="2024-02-08T21:18:00+09:00">08 Feb 2024</time></small>
+        <a href="/2024/02/15/13913_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%884/">
+          백준 숨바꼭질4 [c++]
+          <small><time datetime="2024-02-15T16:18:00+09:00">15 Feb 2024</time></small>
         </a>
       </li>
     
@@ -161,6 +196,7 @@
       <ul class="toc">
   <li><a href="#introduction">Introduction</a></li>
   <li><a href="#related-work">Related Work</a></li>
+  <li><a href="#motivation-and-high-level-considerations">Motivation and High Level Considerations</a></li>
 </ul>
 
   </nav>

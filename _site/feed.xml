@@ -1,4 +1,412 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-02-15T12:54:15+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">console.log(‘HUN’)</title><subtitle>J.Y.Hun's Devlog</subtitle><author><name>Hun</name><email>younghune135@gmail.com</email></author><entry><title type="html">백준 영역 구하기 [c++]</title><link href="http://localhost:4000/2024/02/15/2583_calArea/" rel="alternate" type="text/html" title="백준 영역 구하기 [c++]" /><published>2024-02-15T12:18:00+09:00</published><updated>2024-02-15T13:08:25+09:00</updated><id>http://localhost:4000/2024/02/15/2583_calArea</id><content type="html" xml:base="http://localhost:4000/2024/02/15/2583_calArea/"><![CDATA[<h1 id="2583-영역-구하기-실버-1">2583 영역 구하기 실버 1</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-02-16T23:53:52+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">console.log(‘HUN’)</title><subtitle>J.Y.Hun's Devlog</subtitle><author><name>Hun</name><email>younghune135@gmail.com</email></author><entry><title type="html">백준 동전 2 [c++]</title><link href="http://localhost:4000/2024/02/16/2294_coin2/" rel="alternate" type="text/html" title="백준 동전 2 [c++]" /><published>2024-02-16T15:18:00+09:00</published><updated>2024-02-16T15:28:25+09:00</updated><id>http://localhost:4000/2024/02/16/2294_coin2</id><content type="html" xml:base="http://localhost:4000/2024/02/16/2294_coin2/"><![CDATA[<h1 id="2294-동전-2-골드-5">2294 동전 2 골드 5</h1>
+
+<h2 id="문제">문제</h2>
+<p>n가지 종류의 동전이 있다. 이 동전들을 적당히 사용해서, 그 가치의 합이 k원이 되도록 하고 싶다. 그러면서 동전의 개수가 최소가 되도록 하려고 한다. 각각의 동전은 몇 개라도 사용할 수 있다.</p>
+
+<h2 id="입력">입력</h2>
+<p>첫째 줄에 n, k가 주어진다. (1 ≤ n ≤ 100, 1 ≤ k ≤ 10,000) 다음 n개의 줄에는 각각의 동전의 가치가 주어진다. 동전의 가치는 100,000보다 작거나 같은 자연수이다. 가치가 같은 동전이 여러 번 주어질 수도 있다.</p>
+
+<h2 id="출력">출력</h2>
+<p>첫째 줄에 사용한 동전의 최소 개수를 출력한다. 불가능한 경우에는 -1을 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>동전1과 다르게 BFS로 풀어볼 수 있겠다고 생각되어 BFS로 풀어보려 했다.</p>
+
+<p>처음에는 동전 종류를 큐에 넣고 하나씩 꺼내며 모든 종류의 동전을 더해가며 풀려했는데, 이러면 큐가 너무 많이 생겨 메모리 초과가 났다. (메모리 128MB 제한)</p>
+
+<p>그래서 메모이제이션하면서 map배열에 index금액을 만드는데 든 동전 수를 저장하기로 함.</p>
+
+<p>BFS를 사용하기 때문에(큐: 선입선출), 5원 3개를 쓴 경우가 (12원 1개, 1원 3개)를 쓴 경우보다 먼저 나오게 되어 최소값을 유지해줄 필요가 없다.</p>
+
+<blockquote>
+  <p>memset사용.</p>
+
+  <p>처음 map을 (map[10001] = { -1, })로 초기화했는데, -1로 초기화 되지 않고 처음만 -1, 나머지는 0으로 초기화되었다.</p>
+
+  <p>직접 초기화해주거나 memset을 사용해야겠다.</p>
+</blockquote>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">coin</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">map</span><span class="p">[</span><span class="mi">10001</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">minUsed</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bfs</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="p">){</span>
+            <span class="n">map</span><span class="p">[</span><span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+        <span class="c1">// cout &lt;&lt; "[" &lt;&lt; sum &lt;&lt; "]\n";</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        
+        <span class="c1">// if(sum == k){</span>
+        <span class="c1">//     if(used &lt; minUsed){</span>
+        <span class="c1">//         minUsed = used;</span>
+        <span class="c1">//     }</span>
+        <span class="c1">// }</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">sum</span> <span class="o">+</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">10000</span> <span class="o">&amp;&amp;</span> <span class="n">map</span><span class="p">[</span><span class="n">sum</span> <span class="o">+</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                <span class="n">map</span><span class="p">[</span><span class="n">sum</span> <span class="o">+</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">map</span><span class="p">[</span><span class="n">sum</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">sum</span> <span class="o">+</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">k</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">tmp</span><span class="p">;</span>
+        <span class="n">coin</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">memset</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">coin</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">coin</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="n">bfs</span><span class="p">();</span>
+
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="DP" /><category term="BFS" /><summary type="html"><![CDATA[2294 동전 2 골드 5]]></summary></entry><entry><title type="html">백준 트리_4803 [c++]</title><link href="http://localhost:4000/2024/02/16/4803_tree/" rel="alternate" type="text/html" title="백준 트리_4803 [c++]" /><published>2024-02-16T13:18:00+09:00</published><updated>2024-02-16T13:20:25+09:00</updated><id>http://localhost:4000/2024/02/16/4803_tree</id><content type="html" xml:base="http://localhost:4000/2024/02/16/4803_tree/"><![CDATA[<h1 id="4803-트리-골드-4">4803 트리 골드 4</h1>
+
+<h2 id="문제">문제</h2>
+
+<p>그래프는 정점과 간선으로 이루어져 있다. 두 정점 사이에 경로가 있다면, 두 정점은 연결되어 있다고 한다. 연결 요소는 모든 정점이 서로 연결되어 있는 정점의 부분집합이다. 그래프는 하나 또는 그 이상의 연결 요소로 이루어져 있다.</p>
+
+<p>트리는 사이클이 없는 연결 요소이다. 트리에는 여러 성질이 있다. 예를 들어, 트리는 정점이 n개, 간선이 n-1개 있다. 또, 임의의 두 정점에 대해서 경로가 유일하다.</p>
+
+<p>그래프가 주어졌을 때, 트리의 개수를 세는 프로그램을 작성하시오.</p>
+
+<h2 id="입력">입력</h2>
+
+<p>입력은 여러 개의 테스트 케이스로 이루어져 있다. 각 테스트 케이스의 첫째 줄에는 n ≤ 500과 m ≤ n(n-1)/2을 만족하는 정점의 개수 n과 간선의 개수 m이 주어진다. 다음 m개의 줄에는 간선을 나타내는 두 개의 정수가 주어진다. 같은 간선은 여러 번 주어지지 않는다. 정점은 1번부터 n번까지 번호가 매겨져 있다. 입력의 마지막 줄에는 0이 두 개 주어진다.</p>
+
+<h2 id="출력">출력</h2>
+
+<p>입력으로 주어진 그래프에 트리가 없다면 “No trees.”를, 한 개라면 “There is one tree.”를, T개(T &gt; 1)라면 “A forest of T trees.”를 테스트 케이스 번호와 함께 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>그래프를 인접리스트로 vector를 이용해 입력받은 후 bfs를 돌면서 방문했던곳을 재방문했다면 cycle로 판단할 수 있다.</p>
+
+<p>vector에는 인접한 정점들이 모두 저장되기에 bfs에서 now와 next의 pair를 이용해 직전 부모는 제외하고 탐색한다.</p>
+
+<blockquote>
+  <p>코드를 작성하고 제출했는데 테스트케이스는 모두 맞는데 틀렸다고 나왔다.
+다른 코드들을 살펴보니 풀이방법, 코드도 거의 유사해 틀린부분을 찾기 힘들었는데,</p>
+
+  <p>while문이 잘못되었었다.</p>
+
+  <p>n과 m모두 0인 경우 종료해야한다.</p>
+
+  <p>이 부분을 while(n != 0 &amp;&amp; m != 0)으로 작성했는데</p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td>n과 m모두 0인 경우(n == 0 &amp;&amp; m == 0)의 반대는 =&gt; (n != 0</td>
+        <td> </td>
+        <td>m != 0) 이다.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>기본적인 건데 실수하지 말자..</p>
+</blockquote>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">adj</span><span class="p">[</span><span class="mi">501</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">visited</span><span class="p">[</span><span class="mi">501</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">501</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">clear</span><span class="p">();</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">){</span>
+
+    <span class="kt">int</span> <span class="n">cycle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">now</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">adj</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">adj</span><span class="p">[</span><span class="n">now</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">next</span> <span class="o">!=</span> <span class="n">parent</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">next</span><span class="p">]){</span>
+                    <span class="n">cycle</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span> <span class="n">next</span><span class="p">,</span> <span class="n">now</span> <span class="p">));</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">cycle</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">cycle</span><span class="p">){</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">m</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+
+        <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">tree</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">from</span> <span class="o">&gt;&gt;</span> <span class="n">to</span><span class="p">;</span>
+            <span class="n">adj</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">to</span><span class="p">);</span>
+            <span class="n">adj</span><span class="p">[</span><span class="n">to</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">from</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">// cout &lt;&lt; "input done\n";</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">bfs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+                    <span class="n">tree</span><span class="o">++</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+		<span class="n">string</span> <span class="n">answer</span> <span class="o">=</span> <span class="s">""</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tree</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">answer</span> <span class="o">=</span> <span class="s">"No trees.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">tree</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">answer</span> <span class="o">=</span> <span class="s">"There is one tree.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="p">{</span>
+			<span class="n">answer</span> <span class="o">=</span> <span class="s">"A forest of "</span> <span class="o">+</span> <span class="n">to_string</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">+</span> <span class="s">" trees.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Case "</span> <span class="o">&lt;&lt;</span> <span class="n">cnt</span> <span class="o">&lt;&lt;</span> <span class="s">": "</span> <span class="o">&lt;&lt;</span> <span class="n">answer</span><span class="p">;</span>
+        <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">init</span><span class="p">();</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="BFS" /><summary type="html"><![CDATA[4803 트리 골드 4]]></summary></entry><entry><title type="html">백준 숨바꼭질4 [c++]</title><link href="http://localhost:4000/2024/02/15/13913_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%884/" rel="alternate" type="text/html" title="백준 숨바꼭질4 [c++]" /><published>2024-02-15T16:18:00+09:00</published><updated>2024-02-06T16:28:25+09:00</updated><id>http://localhost:4000/2024/02/15/13913_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%884</id><content type="html" xml:base="http://localhost:4000/2024/02/15/13913_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%884/"><![CDATA[<h1 id="13913-숨바꼭질4-골드-4">13913 숨바꼭질4 골드 4</h1>
+
+<h2 id="문제">문제</h2>
+<p>수빈이는 동생과 숨바꼭질을 하고 있다. 수빈이는 현재 점 N(0 ≤ N ≤ 100,000)에 있고, 동생은 점 K(0 ≤ K ≤ 100,000)에 있다. 수빈이는 걷거나 순간이동을 할 수 있다. 만약, 수빈이의 위치가 X일 때 걷는다면 1초 후에 X-1 또는 X+1로 이동하게 된다. 순간이동을 하는 경우에는 1초 후에 2*X의 위치로 이동하게 된다.</p>
+
+<p>수빈이와 동생의 위치가 주어졌을 때, 수빈이가 동생을 찾을 수 있는 가장 빠른 시간이 몇 초 후인지 구하는 프로그램을 작성하시오.</p>
+
+<h2 id="입력">입력</h2>
+<p>첫 번째 줄에 수빈이가 있는 위치 N과 동생이 있는 위치 K가 주어진다. N과 K는 정수이다.</p>
+
+<h2 id="출력">출력</h2>
+<p>첫째 줄에 수빈이가 동생을 찾는 가장 빠른 시간을 출력한다.</p>
+
+<p>둘째 줄에 어떻게 이동해야 하는지 공백으로 구분해 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<ul>
+  <li>이전 숨바꼭질과 같이 BFS를 사용하는데 정답까지의 경로를 알아야 한다.</li>
+  <li>경로를 저장하기 위해 parent배열을 만들어 queue에 입력될때마다 parent정보를 입력해준다.</li>
+  <li>목적지에 도착하면 parent를 따라가며 출력한다.</li>
+  <li>메모리 초과가 났는데 살펴보니 visited배열에 위치 int를 저장하고 있었다.(실수)</li>
+  <li>이런 실수 안하게 애초에 visited는 bool로 선언하자.</li>
+</ul>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">bool</span> <span class="n">visited</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">parent</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
+<span class="n">queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">fast</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">sec</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="c1">// cout &lt;&lt; pos &lt;&lt; endl;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">==</span> <span class="n">k</span><span class="p">){</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sec</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">pos</span> <span class="o">!=</span> <span class="n">n</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">fast</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pos</span><span class="p">);</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">pos</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="n">fast</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">reverse</span><span class="p">(</span><span class="n">fast</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">fast</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">fast</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">fast</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="mi">100000</span> <span class="o">&amp;&amp;</span> <span class="n">visited</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sec</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+            <span class="n">parent</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span><span class="p">;</span>
+            <span class="n">visited</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="mi">100000</span> <span class="o">&amp;&amp;</span> <span class="n">visited</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sec</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+            <span class="n">parent</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span><span class="p">;</span>
+            <span class="n">visited</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">100000</span> <span class="o">&amp;&amp;</span> <span class="n">visited</span><span class="p">[</span><span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sec</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+            <span class="n">parent</span><span class="p">[</span><span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span><span class="p">;</span>
+            <span class="n">visited</span><span class="p">[</span><span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">k</span><span class="p">;</span>
+
+    <span class="n">bfs</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="BFS" /><summary type="html"><![CDATA[13913 숨바꼭질4 골드 4]]></summary></entry><entry><title type="html">백준 숨바꼭질3 [c++]</title><link href="http://localhost:4000/2024/02/15/13549_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%883/" rel="alternate" type="text/html" title="백준 숨바꼭질3 [c++]" /><published>2024-02-15T15:18:00+09:00</published><updated>2024-02-15T15:20:25+09:00</updated><id>http://localhost:4000/2024/02/15/13549_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%883</id><content type="html" xml:base="http://localhost:4000/2024/02/15/13549_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%883/"><![CDATA[<h1 id="13549-숨바꼭질3-골드5">13549 숨바꼭질3 골드5</h1>
+
+<h2 id="문제">문제</h2>
+<p>수빈이는 동생과 숨바꼭질을 하고 있다. 수빈이는 현재 점 N(0 ≤ N ≤ 100,000)에 있고, 동생은 점 K(0 ≤ K ≤ 100,000)에 있다. 수빈이는 걷거나 순간이동을 할 수 있다. 만약, 수빈이의 위치가 X일 때 걷는다면 1초 후에 X-1 또는 X+1로 이동하게 된다. 순간이동을 하는 경우에는 0초 후에 2*X의 위치로 이동하게 된다.</p>
+
+<p>수빈이와 동생의 위치가 주어졌을 때, 수빈이가 동생을 찾을 수 있는 가장 빠른 시간이 몇 초 후인지 구하는 프로그램을 작성하시오.</p>
+
+<h2 id="입력">입력</h2>
+<p>첫 번째 줄에 수빈이가 있는 위치 N과 동생이 있는 위치 K가 주어진다. N과 K는 정수이다.</p>
+
+<h2 id="출력">출력</h2>
+<p>수빈이가 동생을 찾는 가장 빠른 시간을 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<ul>
+  <li>숨바꼭질1과 비슷한 형태이다.</li>
+  <li>위치에서 -1, +1이 될 때는 1초가 걸리는데, *2를 할때는 0초가 걸리는 점을 고려해서 위치와 pair가 되는 sec을 설정해주면 된다.</li>
+</ul>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">visited</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
+<span class="n">queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">fast</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">sec</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">==</span> <span class="n">k</span><span class="p">){</span>
+            <span class="n">fast</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">sec</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="mi">100000</span> <span class="o">&amp;&amp;</span> <span class="n">visited</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sec</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="mi">100000</span> <span class="o">&amp;&amp;</span> <span class="n">visited</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sec</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">100000</span> <span class="o">&amp;&amp;</span> <span class="n">visited</span><span class="p">[</span><span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sec</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">k</span><span class="p">;</span>
+    
+    <span class="n">bfs</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">fast</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">fast</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">fast</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="BFS" /><summary type="html"><![CDATA[13549 숨바꼭질3 골드5]]></summary></entry><entry><title type="html">백준 영역 구하기 [c++]</title><link href="http://localhost:4000/2024/02/15/2583_calArea/" rel="alternate" type="text/html" title="백준 영역 구하기 [c++]" /><published>2024-02-15T12:18:00+09:00</published><updated>2024-02-15T13:08:25+09:00</updated><id>http://localhost:4000/2024/02/15/2583_calArea</id><content type="html" xml:base="http://localhost:4000/2024/02/15/2583_calArea/"><![CDATA[<h1 id="2583-영역-구하기-실버-1">2583 영역 구하기 실버 1</h1>
 
 <h2 id="문제">문제</h2>
 <p>눈금의 간격이 1인 M×N(M,N≤100)크기의 모눈종이가 있다. 이 모눈종이 위에 눈금에 맞추어 K개의 직사각형을 그릴 때, 이들 K개의 직사각형의 내부를 제외한 나머지 부분이 몇 개의 분리된 영역으로 나누어진다.</p>
@@ -135,7 +543,105 @@
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="BFS" /><summary type="html"><![CDATA[2583 영역 구하기 실버 1]]></summary></entry><entry><title type="html">Going Deeper with convolutions [논문]</title><link href="http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions/" rel="alternate" type="text/html" title="Going Deeper with convolutions [논문]" /><published>2024-02-15T01:18:00+09:00</published><updated>2024-02-15T02:08:25+09:00</updated><id>http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions</id><content type="html" xml:base="http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions/"><![CDATA[<p>저자 : Christian Szegedy 등등</p>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="BFS" /><summary type="html"><![CDATA[2583 영역 구하기 실버 1]]></summary></entry><entry><title type="html">백준 숨바꼭질2 [c++]</title><link href="http://localhost:4000/2024/02/15/12851_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%882/" rel="alternate" type="text/html" title="백준 숨바꼭질2 [c++]" /><published>2024-02-15T12:18:00+09:00</published><updated>2024-02-15T13:08:25+09:00</updated><id>http://localhost:4000/2024/02/15/12851_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%882</id><content type="html" xml:base="http://localhost:4000/2024/02/15/12851_%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%882/"><![CDATA[<h1 id="12851-숨바꼭질2-골드-4">12851 숨바꼭질2 골드 4</h1>
+
+<h2 id="문제">문제</h2>
+
+<p>수빈이는 동생과 숨바꼭질을 하고 있다. 수빈이는 현재 점 N(0 ≤ N ≤ 100,000)에 있고, 동생은 점 K(0 ≤ K ≤ 100,000)에 있다. 수빈이는 걷거나 순간이동을 할 수 있다. 만약, 수빈이의 위치가 X일 때 걷는다면 1초 후에 X-1 또는 X+1로 이동하게 된다. 순간이동을 하는 경우에는 1초 후에 2*X의 위치로 이동하게 된다.</p>
+
+<p>수빈이와 동생의 위치가 주어졌을 때, 수빈이가 동생을 찾을 수 있는 가장 빠른 시간이 몇 초 후인지 그리고, 가장 빠른 시간으로 찾는 방법이 몇 가지 인지 구하는 프로그램을 작성하시오.</p>
+
+<h2 id="입력">입력</h2>
+<p>첫 번째 줄에 수빈이가 있는 위치 N과 동생이 있는 위치 K가 주어진다. N과 K는 정수이다.</p>
+
+<h2 id="출력">출력</h2>
+<p>첫째 줄에 수빈이가 동생을 찾는 가장 빠른 시간을 출력한다.</p>
+
+<p>둘째 줄에는 가장 빠른 시간으로 수빈이가 동생을 찾는 방법의 수를 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>BFS로 queue에 위치(pos)와 움직인 수(move)를 pair로 저장해서 해결하려 했다.</p>
+
+<p>숨바꼭질1 과 달리 최소도달횟수가 몇가지인지도 출력해야 한다. 그래서 동생에게 도달한 경우를 모두 vector에 저장하고
+BFS가 종료된 후, vector를 정렬해 최소도달횟수가 몇개인지 따로 찾았다.</p>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">visited</span><span class="p">[</span><span class="mi">100001</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span>
+<span class="kt">int</span> <span class="n">minM</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findM</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">move</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="c1">// cout &lt;&lt; pos &lt;&lt; endl;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">==</span> <span class="n">k</span><span class="p">){</span>
+            <span class="n">findM</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">move</span><span class="p">);</span>
+            <span class="c1">// if(move &lt;= minM){</span>
+            <span class="c1">//     minM = move;</span>
+            <span class="c1">// }else{</span>
+            <span class="c1">//     q.pop();</span>
+            <span class="c1">//     continue;</span>
+            <span class="c1">// }</span>
+        <span class="p">}</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">nPos</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pos</span> <span class="o">*</span> <span class="mi">2</span><span class="p">};</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">nPos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">nPos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">100000</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">nPos</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">nPos</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">move</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+                    
+                <span class="p">}</span>
+            <span class="p">}</span>   
+        <span class="p">}</span>
+
+    <span class="p">}</span>   
+    
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">k</span><span class="p">;</span>
+
+    <span class="n">bfs</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">findM</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">findM</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+    <span class="c1">// for(int i = 0; i &lt; findM.size(); i++)</span>
+    <span class="c1">// {</span>
+    <span class="c1">//     cout &lt;&lt; findM[i] &lt;&lt; " ";</span>
+    <span class="c1">// }</span>
+
+    <span class="kt">int</span> <span class="n">wayM</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">findM</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">findM</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">findM</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+            <span class="n">wayM</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">findM</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">wayM</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="BFS" /><summary type="html"><![CDATA[12851 숨바꼭질2 골드 4]]></summary></entry><entry><title type="html">Going Deeper with convolutions [논문]</title><link href="http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions/" rel="alternate" type="text/html" title="Going Deeper with convolutions [논문]" /><published>2024-02-15T01:18:00+09:00</published><updated>2024-02-15T02:08:25+09:00</updated><id>http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions</id><content type="html" xml:base="http://localhost:4000/2024/02/15/GoingDeeperWithConvolutions/"><![CDATA[<p>저자 : Christian Szegedy 등등</p>
 
 <h2 id="introduction">Introduction</h2>
 
@@ -157,7 +663,43 @@
   <li>두 번째는 네트워크의 깊이가 증가하였다는 직접적인 의미</li>
 </ol>
 
-<h2 id="related-work">Related Work</h2>]]></content><author><name>Hun</name></author><category term="Paper" /><category term="GoogLeNet" /><category term="Inception" /><summary type="html"><![CDATA[저자 : Christian Szegedy 등등]]></summary></entry><entry><title type="html">백준 점프 [c++]</title><link href="http://localhost:4000/2024/02/09/1890_Jump/" rel="alternate" type="text/html" title="백준 점프 [c++]" /><published>2024-02-09T16:00:00+09:00</published><updated>2024-02-09T17:08:25+09:00</updated><id>http://localhost:4000/2024/02/09/1890_Jump</id><content type="html" xml:base="http://localhost:4000/2024/02/09/1890_Jump/"><![CDATA[<h1 id="1890-점프-실버-1">1890 점프 실버 1</h1>
+<h2 id="related-work">Related Work</h2>
+
+<p>LeNet-5을 시작으로 CNN은 일반적인 표준 구조를 가지는데, Convolutional layer가 쌓이고 그 뒤에 1개 또는 그 이상의 FC layer가 따라오는 구조이다. 또한 대용량 데이터에서 layer 수와 사이즈를 늘리고, overfitting을 피하기 위해 dropout을 적용한다.</p>
+
+<p>GoogLeNet도 이와 같은 구조를 가진다.</p>
+
+<p>Network-in-Network : 1 X 1 Convolutional layer를 사용해 네트워크의 표현력을 증가시키고 계산 효율성을 높이는 접근 방법이다.
+이 방법은 1 X 1 Convolutional layer가 추가되며, ReLU activation이 뒤따른다.</p>
+
+<p>이때, 1 X 1 Convolutional layer의 목적은 2가지로 이 이유로 GoogLeNet에서 사용된다.</p>
+
+<ol>
+  <li>병목현상을 제거하기 위한 차원 축소</li>
+  <li>네트워크 크기 제안한다</li>
+</ol>
+
+<details>
+<summary>
+Network-in-Network에서는 왜 1 X 1 Convolutional layer를 사용했고, 이는 어떻게 위 두가지 장점을 가지게 되는가?
+</summary>
+
+<br />
+<img src="/GoogLeNet_11Convolution.png" />
+
+NIN(Network-in-Network)에서는 CCCP(Casecaded Cross Channel Pooling)이란 기법이 사용되었다. <br />이는 하나의 feature map에 대해 수행하는 일반적인 pooling 기법과 달리 channel을 직렬로 묶어 픽셀 별로 pooling을 수행하는 것으로, feature map의 크기는 그대로이고, channel의 수만 줄어들게 하여 차원 축소의 효과가 있다. 
+<br /><br />
+CCCP 작동 방식:
+<br /><br />
+1. 채널 직렬 연결: 먼저, 서로 연관성이 높은 채널들을 그룹화하여 직렬로 연결합니다.<br />
+2. 픽셀별 풀링: 각 채널 그룹에 대해 픽셀별 최대 풀링 또는 평균 풀링을 수행합니다.<br />
+3. 채널 축소: 풀링 결과를 통해 채널 수를 줄여 계산 효율성을 높입니다.(3D -&gt; 1D)<br />
+4. 다단계 풀링: 위의 과정을 여러 단계 반복하여 더욱 강력한 특징 추출을 수행합니다.<br /><br />
+
+그런데 이 CCCP 기법은 1 x 1 Convolutional layer과 그 연산 방식 및 효과가 매우 유사하다. 따라서 GoogLeNet에서 1 x 1 Convolutional layer를 Inception module에 적용한 것이다.
+</details>
+
+<h2 id="motivation-and-high-level-considerations">Motivation and High Level Considerations</h2>]]></content><author><name>Hun</name></author><category term="Paper" /><category term="GoogLeNet" /><category term="Inception" /><summary type="html"><![CDATA[저자 : Christian Szegedy 등등]]></summary></entry><entry><title type="html">백준 점프 [c++]</title><link href="http://localhost:4000/2024/02/09/1890_Jump/" rel="alternate" type="text/html" title="백준 점프 [c++]" /><published>2024-02-09T16:00:00+09:00</published><updated>2024-02-09T17:08:25+09:00</updated><id>http://localhost:4000/2024/02/09/1890_Jump</id><content type="html" xml:base="http://localhost:4000/2024/02/09/1890_Jump/"><![CDATA[<h1 id="1890-점프-실버-1">1890 점프 실버 1</h1>
 
 <h2 id="문제">문제</h2>
 
@@ -586,371 +1128,4 @@
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">maxDis</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="DFS" /><summary type="html"><![CDATA[트리의 지름 골드 2]]></summary></entry><entry><title type="html">백준 동전0 [c++]</title><link href="http://localhost:4000/2024/02/08/11047_coin0/" rel="alternate" type="text/html" title="백준 동전0 [c++]" /><published>2024-02-08T00:30:00+09:00</published><updated>2024-02-07T02:08:30+09:00</updated><id>http://localhost:4000/2024/02/08/11047_coin0</id><content type="html" xml:base="http://localhost:4000/2024/02/08/11047_coin0/"><![CDATA[<h1 id="동전0-실버-4">동전0 실버 4</h1>
-
-<h2 id="문제">문제</h2>
-<p>준규가 가지고 있는 동전은 총 N종류이고, 각각의 동전을 매우 많이 가지고 있다.</p>
-
-<p>동전을 적절히 사용해서 그 가치의 합을 K로 만들려고 한다. 이때 필요한 동전 개수의 최솟값을 구하는 프로그램을 작성하시오.</p>
-
-<h2 id="입력">입력</h2>
-
-<p>첫째 줄에 N과 K가 주어진다. (1 ≤ N ≤ 10, 1 ≤ K ≤ 100,000,000)</p>
-
-<p>둘째 줄부터 N개의 줄에 동전의 가치 Ai가 오름차순으로 주어진다. (1 ≤ Ai ≤ 1,000,000, A1 = 1, i ≥ 2인 경우에 Ai는 Ai-1의 배수)</p>
-
-<h2 id="출력">출력</h2>
-
-<p>첫째 줄에 K원을 만드는데 필요한 동전 개수의 최솟값을 출력한다.</p>
-
-<h2 id="풀이">풀이</h2>
-
-<p>전처리: 입력 동전 단위가 오름차순으로 주어지니, 스택에 넣어 내림차순으로 바꿔 사용하기 편하게 바꿈.</p>
-
-<ol>
-  <li>주어진 금액을 큰 단위의 동전으로 나눠지면 나눈다.</li>
-  <li>위 과정을 주어진 금액이 0이 될때까지, 혹은 동전 단위가 1이 될때까지 반복</li>
-</ol>
-
-<h2 id="코드">코드</h2>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;stack&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-
-    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">k</span> <span class="p">;</span>
-
-    <span class="kt">int</span> <span class="n">coin</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">c_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">scoin</span><span class="p">;</span>
-
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-        <span class="n">scoin</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">coin</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> 
-    <span class="p">}</span>
-
-    <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">scoin</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-        <span class="n">scoin</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">k</span> <span class="o">&gt;=</span> <span class="n">temp</span><span class="p">){</span>
-            <span class="n">c_count</span> <span class="o">+=</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">temp</span><span class="p">);</span>
-            <span class="n">k</span> <span class="o">-=</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">temp</span><span class="p">)</span> <span class="o">*</span> <span class="n">temp</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">c_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="greedy" /><summary type="html"><![CDATA[동전0 실버 4]]></summary></entry><entry><title type="html">백준 오르막 수 [c++]</title><link href="http://localhost:4000/2024/02/07/11057_risingNumber/" rel="alternate" type="text/html" title="백준 오르막 수 [c++]" /><published>2024-02-07T00:18:00+09:00</published><updated>2024-02-06T02:08:25+09:00</updated><id>http://localhost:4000/2024/02/07/11057_risingNumber</id><content type="html" xml:base="http://localhost:4000/2024/02/07/11057_risingNumber/"><![CDATA[<h1 id="오르막수-실버1">오르막수 실버1</h1>
-
-<h2 id="문제">문제</h2>
-<p>오르막 수는 수의 자리가 오름차순을 이루는 수를 말한다. 이때, 인접한 수가 같아도 오름차순으로 친다.</p>
-
-<p>예를 들어, 2234와 3678, 11119는 오르막 수이지만, 2232, 3676, 91111은 오르막 수가 아니다.</p>
-
-<p>수의 길이 N이 주어졌을 때, 오르막 수의 개수를 구하는 프로그램을 작성하시오. 수는 0으로 시작할 수 있다.</p>
-
-<h1 id="문제-풀이">문제 풀이</h1>
-<ul>
-  <li>자리수 별로 생각해보았다.</li>
-  <li>최고자리수의 수가 커질수록 가능한 경우의 수가 일정히 줄었다.</li>
-  <li>ex</li>
-</ul>
-
-<table>
-  <thead>
-    <tr>
-      <th>최고자리수</th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1자리는</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>2자리는</td>
-      <td>10</td>
-      <td>9</td>
-      <td>8</td>
-      <td>7</td>
-      <td>6</td>
-      <td>5</td>
-      <td>4</td>
-      <td>3</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>3자리는</td>
-      <td>55</td>
-      <td>45</td>
-      <td>36</td>
-      <td>28</td>
-      <td>21</td>
-      <td>15</td>
-      <td>10</td>
-      <td>6</td>
-      <td>3</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-
-<ul>
-  <li>dp[i] 는 이전dp[i]~dp[9]까지의 합임을 알 수 있었다.</li>
-</ul>
-
-<h1 id="코드">코드</h1>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-
-    <span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">c</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">sum</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
-            <span class="p">}</span>
-            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">%</span> <span class="mi">10007</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">result</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">result</span> <span class="o">%</span> <span class="mi">10007</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-
-<span class="p">}</span></code></pre></figure>
-
-<h1 id="총평">총평</h1>
-<ul>
-  <li>10007로 나눈 나머지를 저장하는데 dp를 만들때 수행해주고,</li>
-  <li>마지막 답을 낼때, dp[0]~dp[9]까지의 합을 한 후에도 수행해주어야 한다.</li>
-</ul>]]></content><author><name>Hun</name></author><category term="PS" /><category term="DP" /><summary type="html"><![CDATA[오르막수 실버1]]></summary></entry><entry><title type="html">백준 트리의 부모 찾기 [c++]</title><link href="http://localhost:4000/2024/02/07/11725_ParentTree/" rel="alternate" type="text/html" title="백준 트리의 부모 찾기 [c++]" /><published>2024-02-07T00:18:00+09:00</published><updated>2024-02-06T02:08:25+09:00</updated><id>http://localhost:4000/2024/02/07/11725_ParentTree</id><content type="html" xml:base="http://localhost:4000/2024/02/07/11725_ParentTree/"><![CDATA[<h1 id="트리의-부모-찾기-실버2">트리의 부모 찾기 실버2</h1>
-
-<h2 id="문제">문제</h2>
-<p>루트 없는 트리가 주어진다. 이때, 트리의 루트를 1이라고 정했을 때, 각 노드의 부모를 구하는 프로그램을 작성하시오.</p>
-
-<h2 id="입력">입력</h2>
-<p>첫째 줄에 노드의 개수 N (2 ≤ N ≤ 100,000)이 주어진다. 둘째 줄부터 N-1개의 줄에 트리 상에서 연결된 두 정점이 주어진다.</p>
-
-<h2 id="출력">출력</h2>
-<p>첫째 줄부터 N-1개의 줄에 각 노드의 부모 노드 번호를 2번 노드부터 순서대로 출력한다.</p>
-
-<h1 id="풀이">풀이</h1>
-<ul>
-  <li>bfs문제로 벡터로 인접트리구현 후 bfs돌면서 부모 표시. 부모 출력.</li>
-  <li>주의할 점은 입출력이 많기에 stdio사용 &amp; ios_base::sync_with_studio(0); cin.tie(0)설정 필요.</li>
-</ul>
-
-<h1 id="코드">코드</h1>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">tree</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">visited</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">parent</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
-
-<span class="kt">void</span> <span class="nf">init</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100001</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="c1">// cout &lt;&lt; "init!" &lt;&lt; endl;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">bfs</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
-    <span class="n">visited</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">child</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
-        <span class="n">visited</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">parent</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">child</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
-    <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">node</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
-        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-        <span class="kt">int</span> <span class="n">n_size</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kt">int</span> <span class="n">child</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-                <span class="n">visited</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="n">parent</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
-                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">child</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span><span class="p">;</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">f</span> <span class="o">&gt;&gt;</span> <span class="n">s</span><span class="p">;</span>
-        <span class="n">tree</span><span class="p">[</span><span class="n">f</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-        <span class="n">tree</span><span class="p">[</span><span class="n">s</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">init</span><span class="p">();</span>
-    <span class="n">bfs</span><span class="p">();</span>
-
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
-    <span class="p">}</span>
-
-
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="BFS" /><summary type="html"><![CDATA[트리의 부모 찾기 실버2]]></summary></entry><entry><title type="html">백준 11726 2Xn 타일링 [c++]</title><link href="http://localhost:4000/2024/02/07/11726_2Xn_tiling/" rel="alternate" type="text/html" title="백준 11726 2Xn 타일링 [c++]" /><published>2024-02-07T00:18:00+09:00</published><updated>2024-02-06T02:08:25+09:00</updated><id>http://localhost:4000/2024/02/07/11726_2Xn_tiling</id><content type="html" xml:base="http://localhost:4000/2024/02/07/11726_2Xn_tiling/"><![CDATA[<h1 id="2xn-타일링-실버3">2Xn 타일링 실버3</h1>
-
-<h2 id="문제">문제</h2>
-<p>2×n 크기의 직사각형을 1×2, 2×1 타일로 채우는 방법의 수를 구하는 프로그램을 작성하시오.</p>
-
-<p>아래 그림은 2×5 크기의 직사각형을 채운 한 가지 방법의 예이다.</p>
-
-<h1 id="문제-풀이">문제 풀이</h1>
-<p>1~5까지 그려보니 피보나치임을 알 수 있었다. 그래서 dp로 풀었다.
-금방 풀었다. 그런데 10007로 나눈 나머지를 출력해야 하는데 dp를 계산할 때 적용해도 동일한 결과가 나옴을 알 수 있었다.</p>
-<ul>
-  <li>modulo 특징 적용!</li>
-</ul>
-
-<h1 id="코드">코드</h1>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="n">tile</span><span class="p">[</span><span class="mi">1002</span><span class="p">];</span>
-
-<span class="kt">void</span> <span class="nf">dp</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">tile</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">tile</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">tile</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">tile</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">tile</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">%</span> <span class="mi">10007</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">tile</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span>
-    
-    <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">tile</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<h1 id="총평">총평</h1>
-<ul>
-  <li>Easy.</li>
-  <li>but 조건 잘 읽자.</li>
-</ul>]]></content><author><name>Hun</name></author><category term="PS" /><category term="DP" /><summary type="html"><![CDATA[2Xn 타일링 실버3]]></summary></entry><entry><title type="html">백준 2Xn 타일링2 [c++]</title><link href="http://localhost:4000/2024/02/07/11727_2Xn_tiling_2/" rel="alternate" type="text/html" title="백준 2Xn 타일링2 [c++]" /><published>2024-02-07T00:18:00+09:00</published><updated>2024-02-06T02:08:25+09:00</updated><id>http://localhost:4000/2024/02/07/11727_2Xn_tiling_2</id><content type="html" xml:base="http://localhost:4000/2024/02/07/11727_2Xn_tiling_2/"><![CDATA[<h1 id="2xn-타일링2-실버3">2Xn 타일링2 실버3</h1>
-
-<h2 id="문제">문제</h2>
-<p>2×n 직사각형을 1×2, 2×1과 2×2 타일로 채우는 방법의 수를 구하는 프로그램을 작성하시오.</p>
-
-<p>아래 그림은 2×17 직사각형을 채운 한가지 예이다.</p>
-
-<h2 id="입력">입력</h2>
-<p>첫째 줄에 n이 주어진다. (1 ≤ n ≤ 1,000)</p>
-
-<h2 id="출력">출력</h2>
-<p>첫째 줄에 2×n 크기의 직사각형을 채우는 방법의 수를 10,007로 나눈 나머지를 출력한다.</p>
-
-<h1 id="풀이">풀이</h1>
-<ul>
-  <li>2Xn 타일링과 비슷하나 2*2타일이 생겼다.</li>
-  <li>유사한 dp문제라 생각하고 n = 5까지 작성해봄.</li>
-  <li>dp[i] = dp[i-1] + dp[i-2]*2라는 식 나옴.</li>
-  <li>Done.3</li>
-</ul>
-
-<h1 id="코드">코드</h1>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1002</span><span class="p">];</span>
-
-    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">dp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10007</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="DP" /><summary type="html"><![CDATA[2Xn 타일링2 실버3]]></summary></entry></feed>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="DFS" /><summary type="html"><![CDATA[트리의 지름 골드 2]]></summary></entry></feed>
