@@ -49,6 +49,7 @@ Network-in-Network : 1 X 1 Convolutional layer를 사용해 네트워크의 표�
 Network-in-Network에서는 왜 1 X 1 Convolutional layer를 사용했고, 이는 어떻게 위 두가지 장점을 가지게 되는가?
 </summary>
 
+<img src="/GoogLeNet_11Convolution.png">
 
 NIN(Network-in-Network)에서는 CCCP(Casecaded Cross Channel Pooling)이란 기법이 사용되었다. 이는 하나의 feature map에 대해 수행하는 일반적인 pooling 기법과 달리 channel을 직렬로 묶어 픽셀 별로 pooling을 수행하는 것으로, feature map의 크기는 그대로이고, channel의 수만 줄어들게 하여 차원 축소의 효과가 있다. 
 
@@ -62,3 +63,4 @@ CCCP 작동 방식:
 그런데 이 CCCP 기법은 1 x 1 Convolutional layer과 그 연산 방식 및 효과가 매우 유사하다. 따라서 GoogLeNet에서 1 x 1 Convolutional layer를 Inception module에 적용한 것이다.
 </details>
 
+## Motivation and High Level Considerations
