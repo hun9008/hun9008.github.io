@@ -32,4 +32,21 @@ GoogLeNet의 코드네임인 Inception은 영화 인셉션에 "we need to go dee
 
 ## Related Work
 
+LeNet-5을 시작으로 CNN은 일반적인 표준 구조를 가지는데, Convolutional layer가 쌓이고 그 뒤에 1개 또는 그 이상의 FC layer가 따라오는 구조이다. 또한 대용량 데이터에서 layer 수와 사이즈를 늘리고, overfitting을 피하기 위해 dropout을 적용한다.
+
+GoogLeNet도 이와 같은 구조를 가진다.
+
+Network-in-Network : 1 X 1 Convolutional layer를 사용해 네트워크의 표현력을 증가시키고 계산 효율성을 높이는 접근 방법이다.
+이 방법은 1 X 1 Convolutional layer가 추가되며, ReLU activation이 뒤따른다.
+
+이때, 1 X 1 Convolutional layer의 목적은 2가지로 이 이유로 GoogLeNet에서 사용된다.
+
+1. 병목현상을 제거하기 위한 차원 축소
+2. 네트워크 크기 제안한다
+
+<details>
+<summary>Network-in-Network에서는 왜 1 X 1 Convolutional layer를 사용했고, 이는 어떻게 위 두가지 장점을 가지게 되는가?</summary>
+
+여기서부터
+</details>
 
