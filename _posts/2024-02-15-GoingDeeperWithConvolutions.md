@@ -5,7 +5,7 @@ author: Hun
 tags:
 - Paper
 - GoogLeNet
-- Inception 
+- DeepLearning
 date: 2024-02-15 00:18 +0800
 last_modified_at: 2024-02-15 01:08:25 +0800
 toc: true
