@@ -65,3 +65,39 @@ CCCP 작동 방식:
 </details>
 
 ## Motivation and High Level Considerations
+
+최근 deep neural network의 성능은 모델의 사이즈가 증가함으로써 좋아졌는데 depth와 width가 커졌다.
+
+1. depth : level의 수
+2. width : level의 유닛의 수
+
+이는 좋은 성능을 얻을 수 있는 방법이지만, 두 가지 문제점이 있다. 
+
+첫번째로, 큰 사이즈를 가진다는 것은 많은 파라미터를 가진다는 것인데, training set이 충분하지 않은 모델에서 이는 오버피팅을 야기한다.(특히, 세부 분류가 중요한 ImageNet에서)
+
+두번째로, 사이즈가 커짐에 따라 많은 컴퓨팅 성능이 필요해진다. 한 예로 두 Convolutional layer가 연결되어 있다면, 필터의 수가 증가함에 따라 연산량은 quadratic하게 증가한다. 그런데 만약 대부분의 기울기가 0이라면 이러한 연산은 의미가 없고 리소스 낭비이다.
+
+<details>
+<summary>왜 필터 수에 따라 연산량이 quadratic하게 증가하는가?</summary>
+
+3 X 3 Convolutional layer에서<br />
+Conv filter C1과 C2가 있을때, 두 Convolutional layer가 연결되어 있다면 연산량은<br />
+3 X 3 X C1 X C2 인데, C1과 C2의 크기가 동일하다면 3 X 3 X C1^2 이다.
+</details>
+
+<img src="/GoogLeNet_sparse.png">
+
+위 두 문제를 해결하는 방법은 dense한 Fully-Connected 구조에서 Sparsely Connected 구조로 바꾸는 것이다.<br />
+data를 sparse하면서도 큰 구조로 바꾼다면, 이를 통계 분석해 최적의 학습경로를 찾을 수 있다.<br />
+하지만 현재 컴퓨터 인프라는 sparse한 데이터를 처리하는데 비효율적이다.<br />
+초기 CNN에서는 sparse Connection을 사용했지만, 병렬 컴퓨팅에 더 최적화하기 위해 다시 Full Connection으로 돌아갔다.
+
+<img src="/GoogLeNet_clustering.png">
+
+이때, sparse한 matrix를 다룬 다른 논문에서는 Sparse한 matrix를 Clustering하여 상대적으로 Dense한 Submatrix를 만드는 것을 제안했고, 좋은 성능을 보였다고 한다.
+
+Google팀의 Inception 구조는 이런 Sparse 구조를 시험하기 위해 시작되었고, running-rate와 hyper-parameter를 조정하고 개선한 결과, Localization 및 Object detection 분야에서 특히 좋은 성능을 보였다고 한다.
+
+## Architectural Details
+
+
