@@ -100,4 +100,141 @@ Google팀의 Inception 구조는 이런 Sparse 구조를 시험하기 위해 시
 
 ## Architectural Details
 
+Inception 구조의 주요 아이디어는 Sparse matrix을 서로 묶어(clustering) 상대적으로 Dense한 Submatrix를 만드는 것이다.
 
+이떄, 이전 layer의 각 유닛이 입력 이미지의 특정 부분에 해당한다고 가정했는데,<br />
+입력 이미지와 가까운 낮은 layer에서는 특정 부분에 Correlated unit들이 집중되어 있어, 1 X 1 Convolution으로 처리할 수 있다.
+
+<img src="/GoogLeNet_mouse.png">
+
+하지만, 몇몇 위치에서는 위 사진과 같이 더 넓은 Convolutional filter가 필요해 1 X 1, 3 X 3, 5 X 5 Convolution 연산을 병렬적으로 수행한다.
+
+1 X 1, 3 X 3, 5 X 5 Convolutional filter의 수는 Network가 깊어짐에 따라 달라진다.<br />
+높은 layer에서만 포착 가능한 추상적 개념의 특징이 있다면 3 X 3, 5 X 5 Convolutional filter의 수가 늘어나야 한다.
+
+여기서 문제가 발생하는데,<br />
+3 X 3, 5 X 5 Convolutional filter의 수가 증가하면 연산량이 매우 커지게 된다.
+
+<img src="/GoogLeNet_figure2.png">
+
+따라서 이 문제를 해결하기 위해 1 X 1 Convolutional filter를 이용해 차원을 축소한다. 3 X 3, 5 X 5 Convolutional filter 앞에 1 X 1을 두어 차원을 줄인다.<br />
+이를 통해 여러 scale을 확보하면서도 연산량을 낮출 수 있다.
+추가적으로 Convolution 연산 이후 ReLU를 추가해 비선형적 특징을 더 추가할 수 있다.
+
+Google팀에서는 효율적인 메모리 사용을 위해 낮은 layer에서는 기본적인 CNN모델을 사용하고 높은 layer에서는 Inception module을 사용하는 것이 좋다고 한다.
+
+이를 통해 얻을 수 있는 장점
+
+1. 과도한 연산량 문제없이 각 단계에서 유닛 수를 상당히 증가시킬 수 있다.(차원 축소를 통해 다음 layer의 input을 조절할 수 있기 때문)
+2. Visual 정보다 다양한 scale로 처리되고, 다음 layer는 동시에 서로 다른 layer에서 특징을 추출할 수 있다. (1 X 1, 3 X 3, 5 X 5 Convolution 연산을 통해) 
+
+## GoogLeNet
+
+Inception module이 적용된 전체 GoogLeNet은 LeNet으로 부터 유래했다.
+
+GoogLeNet의 모든 Convolution layer에는 ReLU가 적용된다. 또한 receptive field(수용 영역)는 224 X 224로 RGB 컬러 채널을 가지고 mean subtraction을 적용한다.
+
+<img src="/GoogLeNet_table1.png">
+
+- 3 X 3(5 X 5) reduce : 3 X 3(5 X 5) Convolutional layer 앞에 사용되는 1 X 1 filter의 채널 수를 의미.
+- pool proj : max pooling layer뒤에 오는 1 X 1 filter의 채널 수를 의미.
+
+GoogLeNet을 4개의 part로 나누어 보면 다음과 같다. (전체 모델은 페이지 최하단에 첨부. Go to Model Architecture)
+
+### Part 1
+
+<img src="/GoogLeNet_part1.png">
+
+Part 1은 입력 이미지와 가까운 낮은 layer가 위치한 부분으로 효율적인 메모리 사용을 위해 낮은 layer에서는 기본적인 CNN을 사용했다. (선형적임)
+
+### Part 2
+
+<img src="/GoogLeNet_part2.png">
+
+Part 2는 Inception module로 1 X 1, 3 X 3, 5 X 5 Convolutional layer가 병렬적으로 연산을 수행한다. 차원 축소를 위해 1 X 1 Convolutional layer가 적용되어 있다.
+
+### Part 3
+
+<img src="/GoogLeNet_part3.png">
+
+Part 3는 auxiliary classifier가 적용된 부분이다. <br />
+모델의 깊이가 매우 깊을 경우, 기울기가 0으로 수렴할 수 있는데 이때 중간 layer에 auxiliary classifier를 추가해 추가적인 역전파를 일으켜 gradient가 전달될 수 있게끔 하면서 정규화 효과가 나타나도록 한다.
+
+추가로 지나치게 영향을 주는 것을 막기 위해 auxiliary classifier의 loss에 0.3을 곱했다.
+
+<details>
+<summary>Auxiliary classifier란</summary>
+
+ GoogLeNet (ILSVRC challenge 2014 winner) 에서 처음 도입된 개념 (Training을 잘하도록 도와주는 보조 역할 )
+
+- gradient 전달이 잘 되지 않는 하위 layer을 training하기 위해 사용
+- 쉽게 설명하자면 classification의 문제를 해결하는 Neural Network는 softmax를 맨 마지막 layer에 딱 하나만 놓는데, Auxiliary classifier는 중간중간 에 softmax를 두어 중간에서도 Backpropagation을 하게 함
+- 이를 통해 gradient가 잘 전달되지 않는 문제 해결함
+</details>
+
+### Part 4
+
+<img src="/GoogLeNet_part4.png">
+
+Part 4는 예측 결과가 나오는 모델의 끝부분이다.<br />
+여기서 최종 Classifier 이전에 average pooling layer를 사용했는데, 이는 GAP(Global Average Pooling)이 적용된 것으로 이전 layer에서 추출된 feature map을 각각 평균 낸 것을 이어서 1차원 백터로 만들어 준다.(Softmax와 연결하기 위함)
+
+<img src="/GoogLeNet_GAP.png">
+
+위 사진처럼 평균을 내 1차원 백터로 만드는데 FC와 비교해서 가중치의 개수를 줄일 수 있다. FC의 경우 7 * 7 * 1024 = 50176이지만, GAP을 사용하면 단 1개의 가중치도 필요하지 않다. 또한 GAP을 사용할 경우 fine tuning을 하기 쉽게 만든다.
+
+## Training Methodology
+
+여기서는 모델 훈련을 어떻게 하였는지에 대해 설명하고 있다.
+Google 팀에서는 0.9 momentum의 Stochastic gradient descent를 이용하였고, learning rate는 8 epochs 마다 4%씩 감소시켰다.
+ 
+또한, 이미지의 가로, 세로 비율을 3 : 4와 4 : 3 사이로 유지하며 본래 사이즈의 8% ~ 100%가 포함되도록 다양한 크기의 patch를 사용하였다. 그리고 photometric distortions(광도 왜곡)를 통해 학습 데이터를 늘렸다고 한다.
+
+<details>
+<summary>Photometric distortions란?</summary>
+
+목적:
+
+- 모델의 과적합을 방지하여 일반화 성능을 향상시킵니다.
+- 다양한 조명 환경에서도 정확하게 작동하도록 모델을 - 훈련합니다.
+- 이미지의 중요한 특징을 강조하고 불필요한 정보를 제거합니다.
+
+종류:
+
+- 밝기 변형:
+- 이미지의 전체적인 밝기를 밝게 하거나 어둡게 변형합니다.
+- 그림자 영역이나 과도하게 노출된 영역을 보완하는 데 - 효과적입니다.
+- 대비 변형:
+- 이미지의 대비를 높이거나 낮추어 명암의 차이를 강조하거나 - 완화합니다.
+- 물체의 윤곽선을 더욱 선명하게 하거나 이미지의 전체적인 - 분위기를 조절하는 데 효과적입니다.
+- 채도 변형:
+- 이미지의 채도를 높이거나 낮추어 색상의 선명도를 강조하거나 - 흐릿하게 합니다.
+- 특정 색상 채널을 강조하거나 이미지의 색상 톤을 변환하는 데 - 효과적입니다.
+- 색상 변형:
+- 이미지의 색상을 회색조로 변환하거나 다른 색상 공간으로 - 변환합니다.
+- 특정 색상 채널을 제거하거나 이미지의 색상 균형을 조절하는 - 데 효과적입니다.
+
+적용 방법:
+
+- 랜덤하게 이미지의 밝기, 대비, 채도, 색상을 변형합니다.
+- 특정 범위 내에서 정해진 값만큼 변형합니다.
+- 이미지의 특정 영역만 선택적으로 변형합니다.
+
+장점:
+
+- 모델의 일반화 성능을 향상시킵니다.
+- 다양한 조명 환경에서도 정확하게 작동하도록 모델을 - 훈련합니다.
+- 이미지의 중요한 특징을 강조하고 불필요한 정보를 제거합니다.
+
+단점:
+
+- 과도하게 적용하면 모델의 성능을 저하시킬 수 있습니다.
+- 이미지의 자연스러움을 손상시킬 수 있습니다.
+</details>
+
+## Conclutions
+
+Inception 구조는 Sparse 구조를 Dense 구조로 근사화하여 성능을 개선하였다. 이는 기존에 CNN 성능을 높이기 위한 방법과는 다른 새로운 방법이었으며, 성능은 대폭 상승하지만 연산량은 약간만 증가한다는 장점이 있다.
+
+## Model Architecture
+<img src="/GoogLeNet_all.png">
