@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>백준 웹 브라우저1 [c++] | console.log(‘HUN’)</title>
+<meta name="generator" content="Jekyll v3.9.4" />
+<meta property="og:title" content="백준 웹 브라우저1 [c++]" />
+<meta name="author" content="Hun" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="23294 웹 브라우저1 골드4" />
+<meta property="og:description" content="23294 웹 브라우저1 골드4" />
+<link rel="canonical" href="http://localhost:4000/2024/02/19/23294_APC2021_3/" />
+<meta property="og:url" content="http://localhost:4000/2024/02/19/23294_APC2021_3/" />
+<meta property="og:site_name" content="console.log(‘HUN’)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-02-19T14:18:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="백준 웹 브라우저1 [c++]" />
+<meta name="twitter:site" content="@vszhub" />
+<meta name="twitter:creator" content="@Hun" />
+<meta name="google-site-verification" content="xxxxx" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hun"},"dateModified":"2024-02-19T14:28:25+09:00","datePublished":"2024-02-19T14:18:00+09:00","description":"23294 웹 브라우저1 골드4","headline":"백준 웹 브라우저1 [c++]","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/02/19/23294_APC2021_3/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"},"name":"Hun"},"url":"http://localhost:4000/2024/02/19/23294_APC2021_3/"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="console.log('HUN')" />
+</head>
+
+
+  <body>
+
+    <div class="container pure-g"><div class="sidebar-left pure-u-1 pure-u-md-1-4" style="background-color: rgb(40, 73, 77); color: rgb(255, 255, 255); background-image: url(/bg.jpeg);"><header class="masthead">
+  <div class="avatar"><img src="/avatar.jpeg" class="avatar-image" alt="Hun">
+    </div>
+  <div class="masthead-title">
+    <a href="/" title="Home">console.log('HUN')</a>
+  </div>
+  <div class="masthead-tagline">
+    <small>J.Y.Hun's Devlog</small>
+  </div><nav class="navigation">
+    <ul class="navigation-list"><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/">Blog</a>
+      </li><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/about/">Profile</a>
+      </li></ul>
+  </nav><div class="social pure-menu pure-menu-horizontal">
+      <ul class="social-icons pure-menu-list">
+      <li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="mailto://younghune135@gmail.com">
+            <i class="fas fa-envelope" title="Email"></i>
+          </a>
+        </li><li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="https://github.com/hun9008">
+            <i class="fab fa-github" title="GitHub"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+</header>
+</div>
+
+      <div class="content pure-u-1 pure-u-md-1-2"><main>
+  <article class="post">
+  <h1 class="post-title">백준 웹 브라우저1 [c++]</h1>
+  <div class="post-meta"><time datetime="2024-02-19T14:18:00+09:00" itemprop="datePublished">19 Feb 2024</time><span> ~ </span><time datetime="2024-02-19T14:28:25+09:00" itemprop="dateModified">
+        19 Feb 2024
+      </time><span> • </span>
+      
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+          Hun
+        </span></div>
+
+  <h1 id="23294-웹-브라우저1-골드4">23294 웹 브라우저1 골드4</h1>
+
+<p><a href="https://www.acmicpc.net/problem/23294"> 문제 링크 </a>
+APC 2021 3번</p>
+
+<h2 id="문제">문제</h2>
+<p>우리는 웹 페이지에 접속할 때 ‘웹 브라우저’를 사용한다. 웹 브라우저에는 크게 뒤로 가기(Backward), 앞으로 가기(Frontward), 웹페이지 접속(Access) 기능이 있다.</p>
+
+<p>사용자가 웹 사이트에 접속하면 컴퓨터의 캐시(cache)공간에 웹페이지 정보가 저장된다. 그리고 뒤로 가기 또는 앞으로 가기 기능을 사용하면 캐시 공간에 저장되어 있던 페이지의 정보를 불러오게 된다. 하지만 캐시 공간은 한정적이기 때문에 무한정 정보를 저장할 수 없다. 그래서 일정 캐시 용량을 초과하게 되면 방문한지 오래된 페이지가 삭제되도록 설계되어 있다. 사용 중인 캐시 용량은 뒤로 가기 공간,앞으로 가기 공간 그리고 현재 접속 중인 페이지가 사용하고 있는 용량의 총합으로 계산된다. 여기에 주헌이가 개발한 웹 브라우저에는 신기한 기능이 있는데, 바로 압축(Compress)이라는 기능이다. 압축 기능은 뒤로 가기 공간에 같은 번호의 페이지가 연속해서 들어있을 때, 이를 하나로 줄일 수 있는 기능이다.</p>
+
+<p>각 기능의 작동방식은 각각 다음과 같다.</p>
+
+<p>뒤로 가기를 실행할 경우
+뒤로 가기 공간에 1개 이상의 페이지가 저장되어 있을 때만 2,3번 과정이 실행된다. 0개일 때 이 작업은 무시된다.
+현재 보고 있던 웹페이지를 앞으로 가기 공간에 저장한다.
+뒤로 가기 공간에서 방문한지 가장 최근의 페이지에 접속한다. 그리고 해당 페이지는 뒤로 가기 공간에서 삭제된다.
+앞으로 가기를 실행할 경우
+앞으로 가기 공간에 1개 이상의 페이지가 저장되어 있을 때만 2,3번 과정이 실행된다. 0개일 때 이 작업은 무시된다.
+현재 보고 있던 페이지를 뒤로 가기 공간에 저장한다.
+앞으로 가기 공간에서 방문한지 가장 최근의 페이지에 접속한다. 그리고 해당 페이지는 앞으로 가기 공간에서 삭제된다.
+웹 페이지에 접속할 경우
+앞으로 가기 공간에 저장된 페이지가 모두 삭제된다. 페이지들이 차지하고 있던 크기만큼 현재 사용 캐시에서 줄어든다.
+현재 페이지를 뒤로 가기 공간에 추가하고, 다음에 접속할 페이지가 현재 페이지로 갱신된다. 접속한 페이지의 용량만큼 현재 사용 캐시 용량에 추가된다. 단, 처음으로 웹페이지에 접속하는 경우라면, 현재 페이지를 뒤로 가기 공간에 추가하지 않는다.
+3번 과정은 2번 과정에서 최대 캐시 용량을 초과할 경우에만 실행된다. 뒤로 가기 공간에서 방문한 지 가장 오래된 페이지 하나를 삭제하며, 그 페이지가 차지하고 있던 크기가 현재 사용 캐시 용량에서 줄어든다. 이 과정은 현재 사용 캐시 용량이 최대 캐시 용량보다 작거나 같아질 때까지 여러번 수행될 수 있다.
+압축을 실행할 경우
+뒤로 가기 공간에서 같은 번호의 페이지가 연속해서 2개 이상 등장할 경우, 가장 최근의 페이지 하나만 남기고 나머지는 모두 삭제한다.
+삭제된 페이지가 차지하고 있던 용량만큼 현재 사용 캐시에서 줄어든다.
+Q개의 작업을 모두 마친 뒤에 현재 접속 중인 페이지와 뒤로 가기 공간, 앞으로 가기 공간에 저장되어 있는 페이지의 번호를 구하여라.</p>
+
+<p>초기 상태에는 뒤로 가기 공간, 앞으로 가기 공간이 모두 비어있으며 어떤 페이지에도 접속해있지 않는 상태이다. 또한 같은 번호의 페이지에 여러번 접속할 수 있으며, 그럴 경우 같은 번호의 페이지이라도 방문 순서는 각기 다르게 취급된다.</p>
+
+<h2 id="입력">입력</h2>
+<p>첫째 줄에 접속할 수 있는 웹페이지의 종류의 수 N, 사용자가 수행하는 작업의 개수 Q 와 최대 캐시 용량 C 이 순서대로 주어진다.(1 ≤ N, Q ≤ 2,000, 1 ≤ C ≤ 200,000)</p>
+
+<p>둘째 줄에는 N개의 정수 CAPi 가 주어진다. i 는 웹페이지의 번호이며, i 번째 숫자는 i 번째 웹페이지를 방문할 때 사용하는 캐시 공간의 크기를 의미한다. 각 캐시 공간의 크기는 1 ≤ CAPi  ≤ C  를 만족한다.</p>
+
+<p>셋째 줄부터는 Q개의 작업이 주어지며, 각 작업이 의미하는 바는 다음과 같다.</p>
+
+<p>B : 뒤로 가기를 실행한다.
+F : 앞으로 가기를 실행한다.
+A i : i 번 웹페이지에 접속한다.
+C : 압축을 실행한다.
+A(접속)작업이 적어도 한 번은 등장한다.</p>
+
+<h2 id="출력">출력</h2>
+<p>3줄에 걸쳐서 출력한다.</p>
+
+<p>첫째 줄에는 현재 접속 중인 페이지의 번호를 출력한다.</p>
+
+<p>둘째 줄에는 뒤로 가기 공간에서 가장 최근에 방문한 순서대로 페이지의 번호를 출력한다. 저장된 페이지가 없다면 -1을 출력한다.</p>
+
+<p>셋째 줄에는 앞으로 가기 공간에서 가장 최근에 방문한 순서대로 페이지의 번호를 출력한다. 저장된 페이지가 없다면 -1을 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>브라우저에서 앞으로, 뒤로, 접속, 압축에 따라 cache를 처리하는 문제.</p>
+
+<p>뒤로가기 공간(back cache)과 앞으로가기 공간(front cache)가 필요하고 현재 접속중인 페이지는 하나기 때문에 int.</p>
+
+<h3 id="case">Case</h3>
+<ol>
+  <li>앞으로가거나 뒤로가는 경우에서는 페이지의 공간의 이동만 일어나지 cache에는 변화 없다.</li>
+  <li>접속할 경우 front cache를 비워 cache감소, 그리고 현재 페이지를 back cache로 이동 &amp; 새로운 현재 페이지 설정, 그리고 만약 back cache가 초과한다면 오래된 순으로 삭제.</li>
+  <li>압축할 경우 back cache의 중복인 페이지를 제거하면 된다.</li>
+</ol>
+
+<p>구현을 위해 front cache와 back cache는 vector를 사용했다.</p>
+
+<p>case 1은 조건에 맞게 push와 pop으로 구현하면 됨.</p>
+
+<p>case 2는 우선 front cache에 있는 페이지(크기)만큼 cache를 줄여주고 front cache를 비운다. <br />
+그리고 now에 현재 페이지를 설정하고,<br />
+back cache가 초과할 경우 가장 오래된 것이 삭제되어야 하기 때문에(vector 구조를 사용했기 때문에)<br />
+erase(bachC.begin())처럼 begin과 erase를 사용해 맨 앞의 요소를 삭제한다.</p>
+
+<p>case 3은 우선 현재 cache에서 back cache에 있는 페이지(크기)만큼 cache를 줄여주고,(1)<br />
+erase와 unique를 사용해 중복된 요소를 제거해준다.(2)<br />
+그리고 다시 back cache에 있는 페이지(크기)만큼 cache를 늘려주면 중복된 것만큼 cache가 줄어들게 된다. (3)<br /></p>
+
+<blockquote>
+  <p>초기 cache : 15, backCache : {1,2,3,2,2}</p>
+
+  <p>case 3 과정</p>
+
+  <p>(1) ==&gt; cache : 5 (-10), backCache : {1,2,3,2,2}</p>
+
+  <p>(2) ==&gt; cache : 5 (0), backCache : {1,2,3}</p>
+
+  <p>(3) ==&gt; cache : 11 (+6), backCache : {1,2,3}</p>
+
+  <p>결과 ==&gt; 중복된 {2,2} 만큼(4만큼) cache가 줄어듦.</p>
+</blockquote>
+
+<p>이후 출력 조건에 맞게 출력해주면 된다.</p>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">usedCache</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">cap</span><span class="p">[</span><span class="mi">2001</span><span class="p">];</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">backC</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">frontC</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">now</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">q</span> <span class="o">&gt;&gt;</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span>  <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">cap</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">q</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">string</span> <span class="n">act</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">act</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">act</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">"B"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">backC</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">now</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">now</span> <span class="o">&lt;=</span> <span class="mi">2000</span><span class="p">){</span>
+                    <span class="n">frontC</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
+                    <span class="n">now</span> <span class="o">=</span> <span class="n">backC</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+                    <span class="n">backC</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">act</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">"F"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">frontC</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">now</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">now</span> <span class="o">&lt;=</span> <span class="mi">2000</span><span class="p">){</span>
+                    <span class="n">backC</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
+                    <span class="n">now</span> <span class="o">=</span> <span class="n">frontC</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+                    <span class="n">frontC</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">act</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">"A"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">index</span><span class="p">;</span>
+            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">index</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">used</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">frontC</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">used</span> <span class="o">+=</span> <span class="n">cap</span><span class="p">[</span><span class="n">frontC</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
+            <span class="p">}</span>
+            <span class="n">usedCache</span> <span class="o">-=</span> <span class="n">used</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">usedCache</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+                <span class="n">usedCache</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">frontC</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">now</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">backC</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">index</span><span class="p">;</span>
+            <span class="n">usedCache</span> <span class="o">+=</span> <span class="n">cap</span><span class="p">[</span><span class="n">now</span><span class="p">];</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">usedCache</span> <span class="o">&gt;</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">backC</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+                <span class="n">usedCache</span> <span class="o">-=</span> <span class="n">cap</span><span class="p">[</span><span class="n">backC</span><span class="p">.</span><span class="n">front</span><span class="p">()];</span>
+                <span class="n">backC</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">backC</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">act</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">"C"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">backC</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+ 
+                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">backC</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">usedCache</span> <span class="o">-=</span> <span class="n">cap</span><span class="p">[</span><span class="n">backC</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
+                <span class="p">}</span> 
+                <span class="n">backC</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="n">backC</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">backC</span><span class="p">.</span><span class="n">end</span><span class="p">()),</span> <span class="n">backC</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">backC</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">usedCache</span> <span class="o">+=</span> <span class="n">cap</span><span class="p">[</span><span class="n">backC</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
+                <span class="p">}</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">usedCache</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">usedCache</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">now</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">backC</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+        <span class="n">reverse</span><span class="p">(</span><span class="n">backC</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">backC</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">backC</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">backC</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">frontC</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+        <span class="n">reverse</span><span class="p">(</span><span class="n">frontC</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">frontC</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">frontC</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">frontC</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="p">}</span></code></pre></figure>
+
+
+  
+    
+      <div class="post-tags-section">
+  <i class="post-tags-icon fas fa-tags"></i>
+  <ul class="post-tags"><li>
+        <a class="post-tag" href="/tags/#ps">ps</a></li><li>
+        <a class="post-tag" href="/tags/#try">try</a></li></ul>
+</div>
+
+  
+
+  
+</article>
+
+
+<aside class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <a href="/2024/03/07/16236_babyShark/">
+          백준 아기 상어 [c++]
+          <small><time datetime="2024-03-07T10:18:00+09:00">07 Mar 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/03/03/15666_NM12/">
+          백준 N과 M (12) [c++]
+          <small><time datetime="2024-03-03T10:18:00+09:00">03 Mar 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/03/02/15658_NM9/">
+          백준 N과 M (9) [c++]
+          <small><time datetime="2024-03-02T12:18:00+09:00">02 Mar 2024</time></small>
+        </a>
+      </li>
+    
+  </ul>
+</aside>
+
+
+</main>
+
+<footer class="footer"><small>
+    &copy; 2020&nbsp;-&nbsp;2024 <a href="https://github.com/hun9008/">Hun</a>. All rights reserved.
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://github.com/vszhub/not-pure-poole">Not Pure Poole</a>.
+  </small>
+</footer>
+</div>
+      <div class="sidebar-right pure-u-1 pure-u-md-1-4">
+<div  class="toc-wrapper">
+  <h2 class="toc-title">Table of Contents</h2>
+    <nav class="toc-nav">
+      <ul class="toc">
+  <li><a href="#문제">문제</a></li>
+  <li><a href="#입력">입력</a></li>
+  <li><a href="#출력">출력</a></li>
+  <li><a href="#풀이">풀이</a>
+    <ul>
+      <li><a href="#case">Case</a></li>
+    </ul>
+  </li>
+  <li><a href="#코드">코드</a></li>
+</ul>
+
+  </nav>
+</div>
+
+</div>
+    </div>
+
+    <script async src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script><script>
+  function strip(str, remove) {
+    while (str.length > 0 && remove.indexOf(str.charAt(0)) != -1) {
+      str = str.substr(1);
+    }
+    while (str.length > 0 && remove.indexOf(str.charAt(str.length - 1)) != -1) {
+      str = str.substr(0, str.length - 1);
+    }
+    return str;
+  }
+
+  function scroll() {
+    console.log('scroll');
+    window.scrollTo({
+      left: 0, 
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+    sessionStorage.removeItem('forceCheckScroll');
+  }
+
+  const forceCheckScroll = sessionStorage.getItem('forceCheckScroll') === 'true';
+  const checkScroll = strip(window.location.pathname, '/') !== strip('', '/');
+
+  if (forceCheckScroll || checkScroll) {
+    const maxWidth = "(max-width: 48rem)";
+    const result = window.matchMedia(maxWidth);
+    if (result.matches) {
+      scroll();
+    } else {
+      result.addListener((match) => {
+        if (match.media == maxWidth) {
+          if (match.matches) {
+            scroll();
+          }
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>백준 코딩 바이오리듬 [c++] | console.log(‘HUN’)</title>
+<meta name="generator" content="Jekyll v3.9.4" />
+<meta property="og:title" content="백준 코딩 바이오리듬 [c++]" />
+<meta name="author" content="Hun" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="23292 코딩 바이오리듬 브론즈2" />
+<meta property="og:description" content="23292 코딩 바이오리듬 브론즈2" />
+<link rel="canonical" href="http://localhost:4000/2024/02/19/23292_APC2021_1/" />
+<meta property="og:url" content="http://localhost:4000/2024/02/19/23292_APC2021_1/" />
+<meta property="og:site_name" content="console.log(‘HUN’)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-02-19T11:18:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="백준 코딩 바이오리듬 [c++]" />
+<meta name="twitter:site" content="@vszhub" />
+<meta name="twitter:creator" content="@Hun" />
+<meta name="google-site-verification" content="xxxxx" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hun"},"dateModified":"2024-02-19T11:18:25+09:00","datePublished":"2024-02-19T11:18:00+09:00","description":"23292 코딩 바이오리듬 브론즈2","headline":"백준 코딩 바이오리듬 [c++]","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/02/19/23292_APC2021_1/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/logo.png"},"name":"Hun"},"url":"http://localhost:4000/2024/02/19/23292_APC2021_1/"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="console.log('HUN')" />
+</head>
+
+
+  <body>
+
+    <div class="container pure-g"><div class="sidebar-left pure-u-1 pure-u-md-1-4" style="background-color: rgb(40, 73, 77); color: rgb(255, 255, 255); background-image: url(/bg.jpeg);"><header class="masthead">
+  <div class="avatar"><img src="/avatar.jpeg" class="avatar-image" alt="Hun">
+    </div>
+  <div class="masthead-title">
+    <a href="/" title="Home">console.log('HUN')</a>
+  </div>
+  <div class="masthead-tagline">
+    <small>J.Y.Hun's Devlog</small>
+  </div><nav class="navigation">
+    <ul class="navigation-list"><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/">Blog</a>
+      </li><li class="navigation-item">
+        <a onclick="sessionStorage.setItem('forceCheckScroll', 'true')" href="/about/">Profile</a>
+      </li></ul>
+  </nav><div class="social pure-menu pure-menu-horizontal">
+      <ul class="social-icons pure-menu-list">
+      <li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="mailto://younghune135@gmail.com">
+            <i class="fas fa-envelope" title="Email"></i>
+          </a>
+        </li><li class="pure-menu-item">
+          <a class="social-icon pure-menu-link" href="https://github.com/hun9008">
+            <i class="fab fa-github" title="GitHub"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+</header>
+</div>
+
+      <div class="content pure-u-1 pure-u-md-1-2"><main>
+  <article class="post">
+  <h1 class="post-title">백준 코딩 바이오리듬 [c++]</h1>
+  <div class="post-meta"><time datetime="2024-02-19T11:18:00+09:00" itemprop="datePublished">19 Feb 2024</time><span> ~ </span><time datetime="2024-02-19T11:18:25+09:00" itemprop="dateModified">
+        19 Feb 2024
+      </time><span> • </span>
+      
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+          Hun
+        </span></div>
+
+  <h1 id="23292-코딩-바이오리듬-브론즈2">23292 코딩 바이오리듬 브론즈2</h1>
+
+<p><a href="https://www.acmicpc.net/problem/23292"> 문제 링크 </a>
+APC 2021 1번</p>
+
+<h2 id="문제">문제</h2>
+
+<p>바이오리듬(biorhythm)이라는 이론을 들어본 적 있는가? 바이오리듬은 인체에 신체,감성,지성의 세가지 주기가 생년월일의 입력에 따라 어떤 패턴으로 나타나고, 이 패턴의 조합에 따라 능력이나 활동 효율에 차이가 있다는 주장이다.</p>
+
+<p>주헌이는 날마다 달라지는 본인의 코딩 실력도 혹시 바이오리듬의 영향이 아닐까하는 의구심이 들어 수년간의 연구를 진행했다. 그 결과, 코딩과 바이오리듬 사이에 밀접한 연관이 있다는 사실을 발견했고, 주헌이는 이를 코딩 바이오리듬이라는 새로운 개념을 정의하기로 했다. 주헌이가 발견한 코딩 바이오리듬의 값은 생년월일과 날짜를 바탕으로 다음과 같이 계산된다.</p>
+
+<p>‘연도’를 
+$Y(y)$, ‘월’을 
+$M(m)$, ‘일’을 
+$D(d)$ 의 형식이라고 했을 때, 자신의 생일은 “
+$YYYY : MM : DD$”로, 자신이 코딩할 날짜는”
+$yyyy : mm : dd$” 로 정의하고, 편의상       “
+$Y_1Y_2Y_3Y_4 : M_1M_2 : D_1D_2$”, “
+$y_1y_2y_3y_4 : m_1m_2 : d_1d_2$” 라고 하자. 이때 코딩 바이오리듬의 값은 아래와 공식에 따라 구할 수 있다.</p>
+
+<p> 
+\(\displaystyle \sum_{i=1}^4 {(Y_i-y_i})^2 \times \sum_{j=1}^2 {(M_j-m_j})^2 \times \sum_{k=1}^2 {(D_k-d_k})^2\) </p>
+
+<p>예를 들어, 자신의 생년월일이 2000년 01월 01일 이고, 코딩할 날짜가 2021년 10월 30일 일 때 코딩 바이오리듬의 값은 아래와 공식에 따라 계산된다.</p>
+
+<p> 
+$Y_1Y_2Y_3Y_4 : M_1M_2 : D_1D_2 = 2000 : 01 : 01$ </p>
+
+<p> 
+$y_1y_2y_3y_4 : m_1m_2 : d_1d_2 = 2021 : 10 : 30$ </p>
+
+<p>코딩 바이오리듬  
+$={(2-2)^2+(0-0)^2+(0-2)^2+(0-1)^2}  \times {(0-1)^2+(1-0)^2} \times {(0-3)^2+(1-0)^2} $ </p>
+
+<p> 
+$= 5 \times 2 \times 10 = 100$ </p>
+
+<p>누군가의 생년월일과 그 사람이 코딩할 N 일의 날짜가 주어질 때, 날짜 중에서 그 사람의 코딩 바이오리듬이 가장 높은 날의 날짜를 출력하여라. 가장 높은 값을 가지는 날짜가 여러 개라면, 그 중에서 가장 빠른 날짜를 출력한다.</p>
+
+<h2 id="입력">입력</h2>
+<p>첫 번째 줄에 사람의 생년월일이 주어진다.</p>
+
+<p>두 번째 줄에 그 사람이 코딩할 날짜의 일수 N 이 주어진다. ( 2 ≤ N ≤ 1000 )</p>
+
+<p>세 번째 줄부터 이후 N 개의 줄에 걸쳐서 코딩할 날짜가 주어진다. 코딩할 날짜는 반드시 생년월일 이후임이 보장되며, 같은 날짜가 2개 이상 주어지지 않는다.</p>
+
+<p>모든 날짜 형식은 
+$YYYYMMDD$ 형태로 주어지며, 1000년 01월 01일부터 9999년 12월 31일까지 태양력상으로 실제로 존재하는 날짜만 입력으로 주어진다.</p>
+
+<h2 id="출력">출력</h2>
+<p>입력 받은 코딩할 날짜 중에서 코딩 바이오리듬이 가장 높은 날의 날짜를 
+$YYYYMMDD$ 형태로 출력한다.</p>
+
+<p>가장 높은 값을 가지는 날이 여러 개라면, 그 중에서 가장 빠른 날짜를 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>코딩 바이오리듬은 생일과 날짜에 따라 주어진다.</p>
+
+<p>문제에서 생일과 날짜가 주어지면 코딩 바이오리듬이 가장 높은 날짜를 찾으면된다. (바이오리듬이 같을 경우 날짜 빠른 순)</p>
+
+<p>바이오리듬은 주어진 공식대로 구하면 된다.</p>
+
+<p>map을 사용해 바이오리듬이 가장 큰 날을 찾을 건데, 바이오리듬 값을 key로, 해당 날짜 string을 value로 하는 map을 선언한다.</p>
+
+<p>그리고 map에서 key값이 가장 큰 날짜를 vector<string>에 저장해, 날짜 순으로 sort해 출력하면 해결가능하다.</string></p>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="n">string</span> <span class="n">birth</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">bioValue</span><span class="p">(</span><span class="n">string</span> <span class="n">day</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m</span> <span class="o">+=</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">d</span> <span class="o">+=</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="n">d</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">birth</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">days</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">string</span> <span class="n">tDay</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">tDay</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">bioValue</span><span class="p">(</span><span class="n">tDay</span><span class="p">);</span>
+        <span class="n">days</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">tDay</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">maxDay</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">prev</span><span class="p">(</span><span class="n">days</span><span class="p">.</span><span class="n">end</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">days</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">iter</span> <span class="o">!=</span> <span class="n">days</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">iter</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">max</span> <span class="o">==</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">maxDay</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">iter</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">sort</span><span class="p">(</span><span class="n">maxDay</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">maxDay</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">maxDay</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+
+
+  
+    
+      <div class="post-tags-section">
+  <i class="post-tags-icon fas fa-tags"></i>
+  <ul class="post-tags"><li>
+        <a class="post-tag" href="/tags/#ps">ps</a></li><li>
+        <a class="post-tag" href="/tags/#math">math</a></li><li>
+        <a class="post-tag" href="/tags/#try">try</a></li></ul>
+</div>
+
+  
+
+  
+</article>
+
+
+<aside class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <a href="/2024/03/07/16236_babyShark/">
+          백준 아기 상어 [c++]
+          <small><time datetime="2024-03-07T10:18:00+09:00">07 Mar 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/03/03/15666_NM12/">
+          백준 N과 M (12) [c++]
+          <small><time datetime="2024-03-03T10:18:00+09:00">03 Mar 2024</time></small>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/2024/03/02/15658_NM9/">
+          백준 N과 M (9) [c++]
+          <small><time datetime="2024-03-02T12:18:00+09:00">02 Mar 2024</time></small>
+        </a>
+      </li>
+    
+  </ul>
+</aside>
+
+
+</main>
+
+<footer class="footer"><small>
+    &copy; 2020&nbsp;-&nbsp;2024 <a href="https://github.com/hun9008/">Hun</a>. All rights reserved.
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://github.com/vszhub/not-pure-poole">Not Pure Poole</a>.
+  </small>
+</footer>
+</div>
+      <div class="sidebar-right pure-u-1 pure-u-md-1-4">
+<div  class="toc-wrapper">
+  <h2 class="toc-title">Table of Contents</h2>
+    <nav class="toc-nav">
+      <ul class="toc">
+  <li><a href="#문제">문제</a></li>
+  <li><a href="#입력">입력</a></li>
+  <li><a href="#출력">출력</a></li>
+  <li><a href="#풀이">풀이</a></li>
+  <li><a href="#코드">코드</a></li>
+</ul>
+
+  </nav>
+</div>
+
+</div>
+    </div>
+
+    <script async src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script><script>
+  function strip(str, remove) {
+    while (str.length > 0 && remove.indexOf(str.charAt(0)) != -1) {
+      str = str.substr(1);
+    }
+    while (str.length > 0 && remove.indexOf(str.charAt(str.length - 1)) != -1) {
+      str = str.substr(0, str.length - 1);
+    }
+    return str;
+  }
+
+  function scroll() {
+    console.log('scroll');
+    window.scrollTo({
+      left: 0, 
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+    sessionStorage.removeItem('forceCheckScroll');
+  }
+
+  const forceCheckScroll = sessionStorage.getItem('forceCheckScroll') === 'true';
+  const checkScroll = strip(window.location.pathname, '/') !== strip('', '/');
+
+  if (forceCheckScroll || checkScroll) {
+    const maxWidth = "(max-width: 48rem)";
+    const result = window.matchMedia(maxWidth);
+    if (result.matches) {
+      scroll();
+    } else {
+      result.addListener((match) => {
+        if (match.media == maxWidth) {
+          if (match.matches) {
+            scroll();
+          }
+        }
+      });
+    }
+  }
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
