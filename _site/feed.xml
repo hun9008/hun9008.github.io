@@ -1,4 +1,388 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-03-07T21:43:28+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">console.log(‘HUN’)</title><subtitle>J.Y.Hun's Devlog</subtitle><author><name>Hun</name><email>younghune135@gmail.com</email></author><entry><title type="html">백준 아기 상어 [c++]</title><link href="http://localhost:4000/2024/03/07/16236_babyShark/" rel="alternate" type="text/html" title="백준 아기 상어 [c++]" /><published>2024-03-07T11:18:00+09:00</published><updated>2024-03-07T11:28:25+09:00</updated><id>http://localhost:4000/2024/03/07/16236_babyShark</id><content type="html" xml:base="http://localhost:4000/2024/03/07/16236_babyShark/"><![CDATA[<h1 id="16236-아기-상어-골드-3">16236 아기 상어 골드 3</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-03-27T00:41:51+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">console.log(‘HUN’)</title><subtitle>J.Y.Hun's Devlog</subtitle><author><name>Hun</name><email>younghune135@gmail.com</email></author><entry><title type="html">백준 컬러볼 [c++]</title><link href="http://localhost:4000/2024/03/25/10800_colorBall/" rel="alternate" type="text/html" title="백준 컬러볼 [c++]" /><published>2024-03-25T10:18:00+09:00</published><updated>2024-03-25T10:28:25+09:00</updated><id>http://localhost:4000/2024/03/25/10800_colorBall</id><content type="html" xml:base="http://localhost:4000/2024/03/25/10800_colorBall/"><![CDATA[<h1 id="10800-컬러볼-골드-2">10800 컬러볼 골드 2</h1>
+
+<p><a href="https://www.acmicpc.net/problem/10800"> 문제 링크 </a></p>
+
+<h2 id="문제">문제</h2>
+
+<p>지훈이가 최근에 즐기는 컴퓨터 게임이 있다. 이 게임은 여러 플레이어가 참여하며, 각 플레이어는 특정한 색과 크기를 가진 자기 공 하나를 조종하여 게임에 참여한다. 각 플레이어의 목표는 자기 공보다 크기가 작고 색이 다른 공을 사로잡아 그 공의 크기만큼의 점수를 얻는 것이다. 그리고 다른 공을 사로잡은 이후에도 본인의 공의 색과 크기는 변하지 않는다. 다음 예제는 네 개의 공이 있다. 편의상 색은 숫자로 표현한다.</p>
+
+<p>공 번호	색	크기</p>
+
+<table>
+<thead>
+<tr>
+<th>Index</th>
+<th>Color</th>
+<th>Size</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>10</td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>15</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>이 경우, 2번 공은 다른 모든 공을 사로잡을 수 있다. 반면, 1번 공은 크기가 더 큰 2번 공과 색이 같은 3번 공은 잡을 수 없으며, 단지 4번 공만 잡을 수 있다.</p>
+
+<p>공들의 색과 크기가 주어졌을 때, 각 플레이어가 사로잡을 수 있는 모든 공들의 크기의 합을 출력하는 프로그램을 작성하시오.</p>
+
+<h2 id="입력">입력</h2>
+
+<p>첫 줄에는 공의 개수를 나타내는 자연수 N이 주어진다(1 ≤ N ≤ 200,000). 다음 N개의 줄 중 i번째 줄에는 i번째 공의 색을 나타내는 자연수 Ci와 그 크기를 나타내는 자연수 Si가 주어진다(1 ≤ Ci ≤ N, 1 ≤ Si ≤ 2,000). 서로 같은 크기 혹은 같은 색의 공들이 있을 수 있다.</p>
+
+<h2 id="출력">출력</h2>
+
+<p>N개의 줄을 출력한다. N개의 줄 중 i번째 줄에는 i번째 공을 가진 플레이어가 잡을 수 있는 모든 공들의 크기 합을 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>처음 접근한 방법은, 크기와 색을 백터에 저장한 후 크기 순으로 정렬하고나서 하나씩 돌며 자신보다 크기가 작거나 색이 다른 값들을 더해가는 방법으로 구현했다.</p>
+
+<p>당연히 삼중for문을 사용해 시간초과가 났고 이중 for문으로 줄여봐도 마찬가지였다.</p>
+
+<p>문제를 다시 읽고 생각해보니, 크기 순으로 정렬하고나면 자신보다 크기가 작은 값들의 합을 계산하는데 이는 다음 인덱스의 값도 똑같은 과정을 하므로 부분합을 이용할 수 있었다.</p>
+
+<p>최종 sum = (지금 인덱스까지 부분합) - (자신과 색이 같은 공들의 부분합) - (나와 크키가 같은 공들의 부분합) + 내 크기 로 결정된다.</p>
+
+<p>예외 처리해야할 부분이 있는데, 만약 크기순으로 정렬했을때, 크기와 색이 모두 같은 경우, 이전 인덱스 값과 동일하다.</p>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">info</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">idx</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">color</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">info</span><span class="p">;</span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">info</span><span class="o">&gt;</span> <span class="n">input</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span><span class="o">&gt;</span> <span class="n">ans</span><span class="p">(</span><span class="mi">200001</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+
+<span class="kt">bool</span> <span class="n">comp</span><span class="p">(</span><span class="n">info</span> <span class="n">a</span><span class="p">,</span> <span class="n">info</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">color</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">color</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">color</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">color</span> <span class="o">&gt;&gt;</span> <span class="n">size</span><span class="p">;</span>
+        <span class="n">info</span> <span class="n">inf</span><span class="p">;</span>
+        <span class="n">inf</span><span class="p">.</span><span class="n">idx</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="n">inf</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="p">;</span>
+        <span class="n">inf</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
+        <span class="n">input</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">inf</span><span class="p">);</span>
+        <span class="c1">// box[color - 1].push_back(size);</span>
+    <span class="p">}</span>
+
+    <span class="n">sort</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">input</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">comp</span><span class="p">);</span>
+
+    <span class="kt">long</span> <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="c1">// long long sum_color[200001];</span>
+    <span class="c1">// long long sum_size[200001];</span>
+    <span class="c1">// memset(sum_color, 0, 200001);</span>
+    <span class="c1">// memset(sum_size, 0, 200001);</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sum_color</span> <span class="p">(</span><span class="mi">200001</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sum_size</span> <span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">idx</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">color</span> <span class="o">=</span> <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">color</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">size</span><span class="p">;</span>
+        <span class="n">sum_color</span><span class="p">[</span><span class="n">color</span><span class="p">]</span> <span class="o">+=</span> <span class="n">size</span><span class="p">;</span>
+        <span class="n">sum_size</span><span class="p">[</span><span class="n">size</span><span class="p">]</span> <span class="o">+=</span> <span class="n">size</span><span class="p">;</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">size</span> <span class="o">==</span> <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">size</span> <span class="o">&amp;&amp;</span> <span class="n">color</span> <span class="o">==</span> <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">color</span><span class="p">){</span>
+            <span class="n">ans</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">ans</span><span class="p">[</span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">idx</span><span class="p">];</span>
+        <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+            <span class="n">ans</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">-</span> <span class="n">sum_color</span><span class="p">[</span><span class="n">color</span><span class="p">]</span> <span class="o">-</span> <span class="n">sum_size</span><span class="p">[</span><span class="n">size</span><span class="p">]</span> <span class="o">+</span> <span class="n">size</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="Sorting" /><category term="구현" /><category term="누적 합" /><summary type="html"><![CDATA[10800 컬러볼 골드 2]]></summary></entry><entry><title type="html">백준 경비행기 [c++]</title><link href="http://localhost:4000/2024/03/24/2585_lightFly/" rel="alternate" type="text/html" title="백준 경비행기 [c++]" /><published>2024-03-24T10:18:00+09:00</published><updated>2024-03-24T10:28:25+09:00</updated><id>http://localhost:4000/2024/03/24/2585_lightFly</id><content type="html" xml:base="http://localhost:4000/2024/03/24/2585_lightFly/"><![CDATA[<h1 id="2585-경비행기-골드2">2585 경비행기 골드2</h1>
+
+<p><a href="linkHere"> 문제 링크 </a></p>
+
+<h2 id="문제">문제</h2>
+
+<p>경비행기 독수리호가 출발지 S에서 목적지 T로 가능한 빠른 속도로 안전하게 이동하고자 한다. 이때, 경비행기의 연료통의 크기를 정하는 것이 중요한 문제가 된다. 큰 연료통을 장착하면 중간에 내려서 급유를 받는 횟수가 적은 장점이 있지만 연료통의 무게로 인하여 속도가 느려지고, 안정성에도 문제가 있을 수 있다. 한편 작은 연료통을 장착하면 비행기의 속도가 빨라지는 장점이 있지만 중간에 내려서 급유를 받아야 하는 횟수가 많아지는 단점이 있다. 문제는 중간에 내려서 급유를 받는 횟수가 k이하 일 때 연료통의 최소용량을 구하는 것이다. 아래 예를 보자.</p>
+
+<p><img src="/2585.png" /></p>
+
+<p>위 그림은 S, T와 7개의 중간 비행장의 위치를 나타내고 있는 그림이다. 위 예제에서 중간급유를 위한 착륙 허용 최대횟수 k=2라면 S-a-b-T로 가는 항로가 S-p-q-T로 가는 항로 보다 연료통이 작게 된다. 왜냐하면, S-p-q-T항로에서 q-T의 길이가 매우 길어서 이 구간을 위해서 상당히 큰 연료통이 필요하기 때문이다. 문제는 이와 같이 중간에 최대 K번 내려서 갈 수 있을 때 최소 연료통의 크기가 얼마인지를 결정하여 출력하면 된다. 참고사항은 다음과 같다.</p>
+
+<p>모든 비행기는 두 지점 사이를 반드시 직선으로 날아간다. 거리의 단위는 ㎞이고 연료의 단위는 ℓ(리터)이다. 1ℓ당 비행거리는 10㎞이고 연료주입은 ℓ단위로 한다.
+두 위치간의 거리는 평면상의 거리이다. 예를 들면, 두 점 g=(2,1)와 h=(37,43)간의 거리 d(g,h)는 
+(((\sqrt{(2-37)^2 + (1-43)^2}))) = 54.671… 이고 50＜d(g,h) ≤ 60이므로 필요한 연료는 6ℓ가 된다.
+출발지 S의 좌표는 항상 (0,0)이고 목적지 T의 좌표는 (10000,10000)으로 모든 입력 데이터에서 고정되어 있다.
+출발지와 목적지를 제외한 비행장의 수 n은 3 ≤ n ≤ 1000이고 그 좌표 값 (x,y)의 범위는 0＜x,y＜10000의 정수이다. 그리고 최대 허용 중간급유 횟수 k는 0 ≤ k ≤ 1000이다.</p>
+
+<h2 id="입력">입력</h2>
+
+<p>첫 줄에는 n과 k가 하나의 공백을 사이에 두고 주어진다. 그 다음 n개의 줄에는 각 비행장 (급유지)의 정수좌표가 x y 형식으로 주어진다.</p>
+
+<h2 id="출력">출력</h2>
+
+<p>S에서 T까지 k번 이하로 중간급유 하여 갈 수 있는 항로에서의 최소 연료통 용량에 해당되는 정수를 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>경비행기를 타고 목적지까지 이동하는데 K번 이하로 경유할 수 있는데, 경유지까지 내린 거리의 유클리드 거리의 ceil만큼의 연료탱크가 필요하다.</p>
+
+<p>하나의 경로가 정해지면 경로에 대한 부분거리의 최대값의 ceil이 해당경로에 필요한 연료탱크값이 된다.</p>
+
+<p>K이하 경유하는 경로 중 연료탱크값의 최소값을 찾는 문제이다.</p>
+
+<p>각 지점인 N이 3 &lt;= N &lt;= 1000이고, K는 1 &lt;= K &lt;= 1000으로 단순 BFS를 하면, 1000개의 node에 대해 BFS를 해야하고(O(1000^2)) 이를 K가 1~1000까지 해야 하므로 제한시간안에 절대 불가능.</p>
+
+<p>이분탐색을 사용해 연료탱크값을 추정하고(mid), mid값에 대해 bfs를 수행하면서 정해진 mid가 최소값이 될 수 있는지 확인할 수 있다.</p>
+
+<p>시작점이 (0,0)이고 도착지점이 (10000,10000)이기 때문에 단일 부분경로의 최대값은 root(10000) 으로 대략 14100쯤 된다.</p>
+
+<p>이분탐색을 하는데 log(14100) = 약 14, 여기에 bfs가 O(n^2)이므로 이분탐색을 이용해야 한다.</p>
+
+<p>이분탐색에서 end값은 14100이상의 20000으로 설정하고 start는 0으로 설정한다. BFS결과가 true라면 최소값과 비교해 갱신한다.</p>
+
+<p>BFS에서는 기본적으로 mid값보다 작은 distance를 가지는 점을 queue에 넣는다. 그리고 넣은 값이 mid보다 작다면 최소값일 가능성이 있으므로 true반환.</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// in BFS(mid)</span>
+<span class="k">if</span><span class="p">(</span><span class="n">mid</span> <span class="o">&gt;=</span> <span class="n">dist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)){</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>만약 이때까지 거친 경유지가 K보다 커지면 pop만하고 종료</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">if</span><span class="p">(</span><span class="n">kth</span> <span class="o">==</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">){</span>
+    <span class="k">continue</span><span class="p">;</span> <span class="c1">//pop만</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>이후 모든 지점들을 살펴보면서 (현재지점-&gt;다음지점)의 거리가 mid보다 작은 값들을 방문표시하고 queue에 삽입.
+(visited는 points에 대한것이라 1차원)</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">mid</span> <span class="o">&gt;=</span> <span class="n">dist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="p">{</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">),</span><span class="n">kth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">points</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">dist</span><span class="p">(</span><span class="kt">int</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y2</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">;</span> 
+	<span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">;</span>
+	<span class="kt">double</span> <span class="n">dist</span><span class="p">;</span>
+
+	<span class="n">dist</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">pow</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>       
+	<span class="n">dist</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">dist</span><span class="p">);</span>    
+    <span class="c1">// cout &lt;&lt; dist &lt;&lt; endl;              </span>
+
+	<span class="k">return</span> <span class="n">ceil</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">mid</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">visited</span><span class="p">[</span><span class="mi">1001</span><span class="p">];</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">0</span><span class="p">));</span>
+    <span class="n">memset</span><span class="p">(</span><span class="n">visited</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">visited</span><span class="p">));</span>
+    <span class="c1">// visited[0] = 1;</span>
+    
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">kth</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">mid</span> <span class="o">&gt;=</span> <span class="n">dist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)){</span>
+            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span> 
+        <span class="k">if</span><span class="p">(</span><span class="n">kth</span> <span class="o">==</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">){</span>
+            <span class="k">continue</span><span class="p">;</span> <span class="c1">//pop만</span>
+        <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">mid</span> <span class="o">&gt;=</span> <span class="n">dist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="p">{</span>
+                <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">),</span><span class="n">kth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">k</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">y</span><span class="p">;</span>
+        <span class="n">points</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">20000</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">20000</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">end</span> <span class="o">+</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">bfs</span><span class="p">(</span><span class="n">mid</span><span class="p">)){</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
+            <span class="c1">// cout &lt;&lt; ans &lt;&lt; endl;</span>
+        <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="이진탐색" /><category term="BFS" /><summary type="html"><![CDATA[2585 경비행기 골드2]]></summary></entry><entry><title type="html">백준 A -&amp;gt; B [c++]</title><link href="http://localhost:4000/2024/03/18/16953_AtoB/" rel="alternate" type="text/html" title="백준 A -&amp;gt; B [c++]" /><published>2024-03-18T10:18:00+09:00</published><updated>2024-03-18T10:28:25+09:00</updated><id>http://localhost:4000/2024/03/18/16953_AtoB</id><content type="html" xml:base="http://localhost:4000/2024/03/18/16953_AtoB/"><![CDATA[<h1 id="16953-a---b-실버-2">16953 A -&gt; B 실버 2</h1>
+
+<p><a href="https://www.acmicpc.net/problem/16953"> 문제 링크 </a></p>
+
+<h2 id="문제">문제</h2>
+
+<p>정수 A를 B로 바꾸려고 한다. 가능한 연산은 다음과 같은 두 가지이다.</p>
+
+<p>2를 곱한다.
+1을 수의 가장 오른쪽에 추가한다. 
+A를 B로 바꾸는데 필요한 연산의 최솟값을 구해보자.</p>
+
+<h2 id="입력">입력</h2>
+
+<p>첫째 줄에 A, B (1 ≤ A &lt; B ≤ 109)가 주어진다.</p>
+
+<h2 id="출력">출력</h2>
+
+<p>A를 B로 바꾸는데 필요한 연산의 최솟값에 1을 더한 값을 출력한다. 만들 수 없는 경우에는 -1을 출력한다.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>A에서 B로 가는 최소값을 찾는 문제로, 초기값이 A &lt; B 이고 A는 계속 커져 B에 도달하거나 못한다.</p>
+
+<p>BFS를 사용해 모든 경우를 탐색하면서 A가 B보다 커지면 pop한다.</p>
+
+<p>사용할 수 있는 연산인 X2 연산과 오른쪽에 1을 추가하는 연산은 겹칠일이 없다. (2배수를 해서 1의 자리가 1이 나오지 못함)</p>
+
+<p>= visited 안써도 됨.</p>
+
+<p>BFS만 써도 해결되는 문제. (주의 : 결과 값이(cnt) int범위를 초과할 수 있어, long long 사용)</p>
+
+<h2 id="코드">코드</h2>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+
+<span class="kt">long</span> <span class="kt">long</span> <span class="nf">bfs</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">queue</span> <span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">num</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">cnt</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">num</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">cnt</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">num</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cnt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span><span class="p">;</span>
+
+    <span class="kt">long</span> <span class="kt">long</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">bfs</span><span class="p">();</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">answer</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">answer</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="BFS" /><summary type="html"><![CDATA[16953 A -&gt; B 실버 2]]></summary></entry><entry><title type="html">백준 아기 상어 [c++]</title><link href="http://localhost:4000/2024/03/07/16236_babyShark/" rel="alternate" type="text/html" title="백준 아기 상어 [c++]" /><published>2024-03-07T11:18:00+09:00</published><updated>2024-03-07T11:28:25+09:00</updated><id>http://localhost:4000/2024/03/07/16236_babyShark</id><content type="html" xml:base="http://localhost:4000/2024/03/07/16236_babyShark/"><![CDATA[<h1 id="16236-아기-상어-골드-3">16236 아기 상어 골드 3</h1>
 
 <p><a href="https://www.acmicpc.net/problem/16236"> 문제 링크 </a></p>
 
@@ -1163,488 +1547,4 @@ erase와 unique를 사용해 중복된 요소를 제거해준다.(2)<br />
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="try" /><summary type="html"><![CDATA[23294 웹 브라우저1 골드4]]></summary></entry><entry><title type="html">백준 아주 서바이벌 [c++]</title><link href="http://localhost:4000/2024/02/19/23293_APC2021_2/" rel="alternate" type="text/html" title="백준 아주 서바이벌 [c++]" /><published>2024-02-19T12:18:00+09:00</published><updated>2024-02-19T12:28:25+09:00</updated><id>http://localhost:4000/2024/02/19/23293_APC2021_2</id><content type="html" xml:base="http://localhost:4000/2024/02/19/23293_APC2021_2/"><![CDATA[<h1 id="23293-아주-서바이벌-실버1">23293 아주 서바이벌 실버1</h1>
-
-<p><a href="https://www.acmicpc.net/problem/23293"> 문제 링크 </a>
-APC 2021 2번</p>
-
-<h2 id="문제">문제</h2>
-<p>때는 2021년, 대한민국에는 ‘아주 서바이벌’이라는 온라인 게임이 대 유행 중이다. 이 게임은 바다 한가운데의 섬, 아주 아일랜드에서 벌어지는 배틀로얄 게임으로 플레이어들은 아주 아일랜드의 여러 지역을 돌아다니며 아이템을 획득하고, 조합해 다른 플레이어와 싸우게 된다.</p>
-
-<p>상민이는 아주 서바이벌의 서버 개발자다. 이 게임이 흥행하면서 부정행위를 저지르는 플레이어가 늘어나자, 보다 못한 상민이는 게임의 로그를 분석해 부정행위를 전부 찾아내기로 했다.</p>
-
-<p>아주 서바이벌 지도</p>
-
-<p><img src="/ajsurvive.png" /></p>
-
-<p>아주 서바이벌에는 1번부터 53번 지역까지 총 53개의 지역이 존재하며, 모든 플레이어가 1번 지역(정문)에 모인 채로 게임이 시작된다.</p>
-
-<p>플레이어들은 이동, 획득, 조합, 공격 총 네 가지 종류의 행동을 할 수 있다.</p>
-
-<p>이동 : 플레이어가 현재 위치한 지역에서 다른 지역으로 이동한다. 즉, 현재 위치한 지역으로는 이동하지 않는다.
-획득 : 플레이어가 현재 위치한 지역에서만 획득할 수 있는 소재 아이템 1개를 획득한다. 즉, x번 지역에서는 x번 소재 아이템을 획득한다. 아이템의 수량은 충분해 부족할 일이 없으며, 한 플레이어가 같은 아이템을 여러 번 획득할 수 있다.
-조합 : 플레이어가 가지고 있는 서로 다른 종류의 두 소재 아이템을 1개씩 사용해 장비를 만든다.
-공격 : 플레이어가 다른 플레이어 한 명을 공격한다. 오직 같은 지역에 있는 플레이어만 공격할 수 있다.
-위 행동들에서 상민이는 아래 세 가지 경우를 부정행위라고 판단했다.</p>
-
-<p>플레이어가 현재 위치한 지역에서 얻을 수 없는 소재 아이템을 획득한 경우
-플레이어가 가지고 있지 않은 소재 아이템을 사용해 조합하는 경우
-플레이어가 다른 지역에 있는 상대 플레이어를 공격하는 경우
-상민: 부정행위로 보이는 모든 로그를 기록할 거야. 하지만, 공격할 때 위치를 속이는 것은 참을 수 없어. 그런 플레이어는 차단할 거야!</p>
-
-<p>게임 로그는 다음과 같이 주어진다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 11 M 13
-2 13 M 15
-3 11 F 13
-4 11 M 3
-5 11 F 3
-6 11 C 3 13
-7 13 A 11
-8 13 F 15
-9 13 F 16
-10 13 C 15 16
-</code></pre></div></div>
-
-<p>게임 로그는 “[번호] [플레이어 번호] [행동 코드] [행동 인자]”의 형식으로 기록된다.</p>
-
-<p>번호 : 로그의 줄 번호이다. 1번부터 T번까지 순서대로 주어진다.
-플레이어 번호 : 각 플레이어가 가지는 고유한 번호이다. 1번부터 N번 사이의 번호를 가지게 된다.
-행동 코드 : 플레이어가 한 행동이다. 이동은 M(Move), 획득은 F(Farming), 조합은 C(Crafting), 공격은 A(Attack)이다.
-행동 인자 : 플레이어가 한 행동과 관련된 정보이다. 이동은 새로 이동한 지역의 번호, 획득은 획득한 소재 아이템의 번호, 조합은 조합에 사용된 두 소재 아이템의 번호, 공격은 공격한 플레이어 번호를 행동 인자로 가진다.
-부정행위로 획득한 소재 아이템 역시 획득한 것으로 인정되며, 부정행위로 조합 시 가지고 있는 소재 아이템만이 사용된다.</p>
-
-<p>위 로그를 예로 들면, 11번 플레이어는 13번 지역으로 이동하여(1) 13번 소재 아이템을 획득하고(3), 이후 3번 지역으로 이동하여(4) 3번 소재 아이템을 획득해(5) 3번과 13번 소재 아이템을 조합했다(6). 모두 정상적인 행동이다.</p>
-
-<p>13번 플레이어는 15번 지역으로 이동한 후(2), 3번 지역에 있는 11번 플레이어를 공격했다(7). 다른 지역에 있는 플레이어를 공격하는 것은 부정행위이기 때문에 7번 로그를 기록하고, 공격 부정행위이기 때문에 13번 플레이어는 차단해야 한다. 이어서, 15번 소재 아이템을 획득하고(8), 16번 소재 아이템을 획득 후에(9), 15번과 16번 소재 아이템을 조합했다(10). 15번 지역에서 16번 소재 아이템을 획득하는 것은 부정행위이기 때문에 9번 로그를 기록한다. 하지만, 16번 소재 아이템을 획득한 것은 인정되기 때문에 10번 로그는 부정행위가 아니다.</p>
-
-<p>상민이를 위해 게임의 로그를 분석하고, 기록된 부정행위와 차단할 플레이어를 상민에게 알려주자.</p>
-
-<h2 id="입력">입력</h2>
-<p>첫 번째 줄에는 게임 로그의 줄 수 T, 플레이어 수 N이 주어진다. (1 ≤ T ≤ 200,000, 1 ≤ N ≤ 100,000)</p>
-
-<p>두 번째 줄부터 T개 줄 동안 게임 로그가 입력된다. 각 줄의 게임 로그는 번호, 플레이어 번호, 행동 코드, 행동 인자가 공백 한 칸을 사이에 두고 주어진다.</p>
-
-<h2 id="출력">출력</h2>
-<p>첫 번째 줄에 부정행위로 기록된 로그의 수를 출력한다. 기록된 로그가 없다면 “0”을 출력한다.</p>
-
-<p>부정행위로 기록된 로그가 있다면 다음 줄에 기록된 로그의 번호를 공백 한 칸씩 띄어서 오름차순으로 출력한다. 기록된 로그가 없다면 해당 줄은 출력하지 않는다.</p>
-
-<p>다음 줄에 차단할 플레이어 수를 출력한다. 차단할 플레이어가 없다면 “0”을 출력한다.</p>
-
-<p>차단할 플레이어가 있다면 다음 줄에는 차단할 플레이어의 번호를 공백 한 칸씩 띄어서 오름차순으로 출력한다. 한 플레이어가 여러 번 부정행위를 저지르더라도 한 번만 출력하며, 차단할 플레이어가 없다면 해당 줄은 출력하지 않는다.</p>
-
-<h2 id="풀이">풀이</h2>
-
-<p>게임의 로그를 보고 부정행위로그를 찾고, 차단할 플레이어를 찾는 문제이다.</p>
-
-<p>게임 규칙에 따라 player는 위치값(1개)과 인벤토리(여러 개, 중복가능)가 필요하다.<br />
-playerInven[i] : i 플레이어가 가진 아이템들. (vector)</p>
-
-<p>playerPos[i] : i 플레이어의 현재 위치.</p>
-
-<p>이제 입력로그를 하나씩 입력받으면서 A,M,C,F일 때 조건에 맞게 부정행위를 찾아 errorLog vector에 넣는다.
-그리고 A의 경우에는 에러임과 동시에 차단해야할 플레이어이기 때문에 errorPlayer vector에 넣는다.</p>
-
-<p>모든 로그를 입력받고 errorLog와 errorPlayer를 출력한다.</p>
-
-<h2 id="코드">코드</h2>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">;</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">playerInven</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">playerPos</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">errorLog</span><span class="p">;</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">errorPlayer</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100001</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">playerPos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">t</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">playerNum</span><span class="p">;</span>
-        <span class="n">string</span> <span class="n">active</span><span class="p">;</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span> <span class="o">&gt;&gt;</span> <span class="n">playerNum</span> <span class="o">&gt;&gt;</span> <span class="n">active</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">active</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">"C"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="p">;</span>
-            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">item1</span> <span class="o">&gt;&gt;</span> <span class="n">item2</span><span class="p">;</span>
-            <span class="c1">// playerInven[playerNum].push_back()</span>
-            <span class="k">auto</span> <span class="n">iter1</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">playerInven</span><span class="p">[</span><span class="n">playerNum</span><span class="p">].</span><span class="n">begin</span><span class="p">(),</span> <span class="n">playerInven</span><span class="p">[</span><span class="n">playerNum</span><span class="p">].</span><span class="n">end</span><span class="p">(),</span> <span class="n">item1</span><span class="p">);</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">iter1</span> <span class="o">==</span> <span class="n">playerInven</span><span class="p">[</span><span class="n">playerNum</span><span class="p">].</span><span class="n">end</span><span class="p">())</span>
-            <span class="p">{</span>
-                <span class="n">errorLog</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
-                <span class="c1">// errorPlayer.push_back(playerNum);</span>
-            <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
-                <span class="n">playerInven</span><span class="p">[</span><span class="n">playerNum</span><span class="p">].</span><span class="n">erase</span><span class="p">(</span><span class="n">iter1</span><span class="p">);</span>
-            <span class="p">}</span>
-
-            <span class="k">auto</span> <span class="n">iter2</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">playerInven</span><span class="p">[</span><span class="n">playerNum</span><span class="p">].</span><span class="n">begin</span><span class="p">(),</span> <span class="n">playerInven</span><span class="p">[</span><span class="n">playerNum</span><span class="p">].</span><span class="n">end</span><span class="p">(),</span> <span class="n">item2</span><span class="p">);</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">iter2</span> <span class="o">==</span> <span class="n">playerInven</span><span class="p">[</span><span class="n">playerNum</span><span class="p">].</span><span class="n">end</span><span class="p">())</span>
-            <span class="p">{</span>
-                <span class="n">errorLog</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
-                <span class="c1">// errorPlayer.push_back(playerNum);</span>
-            <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
-                <span class="n">playerInven</span><span class="p">[</span><span class="n">playerNum</span><span class="p">].</span><span class="n">erase</span><span class="p">(</span><span class="n">iter2</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
-            <span class="kt">int</span> <span class="n">act</span><span class="p">;</span>
-            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">act</span><span class="p">;</span>
-
-            <span class="k">if</span><span class="p">(</span><span class="n">active</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">"M"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">playerPos</span><span class="p">[</span><span class="n">playerNum</span><span class="p">]</span> <span class="o">=</span> <span class="n">act</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">active</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">"F"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">playerInven</span><span class="p">[</span><span class="n">playerNum</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">act</span><span class="p">);</span>
-
-                <span class="k">if</span><span class="p">(</span><span class="n">playerPos</span><span class="p">[</span><span class="n">playerNum</span><span class="p">]</span> <span class="o">!=</span> <span class="n">act</span><span class="p">){</span>
-                    <span class="n">errorLog</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
-                    <span class="c1">// errorPlayer.push_back(playerNum);</span>
-                <span class="p">}</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">active</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">"A"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">playerPos</span><span class="p">[</span><span class="n">act</span><span class="p">]</span> <span class="o">!=</span> <span class="n">playerPos</span><span class="p">[</span><span class="n">playerNum</span><span class="p">]){</span>
-                    <span class="n">errorLog</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
-                    <span class="n">errorPlayer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">playerNum</span><span class="p">);</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-
-        <span class="p">}</span>
-    <span class="p">}</span>
-    
-    <span class="k">if</span><span class="p">(</span><span class="n">errorLog</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"0"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
-        <span class="n">sort</span><span class="p">(</span><span class="n">errorLog</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">errorLog</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-        <span class="n">errorLog</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="n">errorLog</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">errorLog</span><span class="p">.</span><span class="n">end</span><span class="p">()),</span> <span class="n">errorLog</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errorLog</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">errorLog</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errorLog</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">if</span><span class="p">(</span><span class="n">errorPlayer</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"0"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
-        <span class="n">sort</span><span class="p">(</span><span class="n">errorPlayer</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">errorPlayer</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-        <span class="n">errorPlayer</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="n">errorPlayer</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">errorPlayer</span><span class="p">.</span><span class="n">end</span><span class="p">()),</span> <span class="n">errorPlayer</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errorPlayer</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">errorPlayer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errorPlayer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
-    <span class="p">}</span>
-
-
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="try" /><summary type="html"><![CDATA[23293 아주 서바이벌 실버1]]></summary></entry><entry><title type="html">백준 코딩 바이오리듬 [c++]</title><link href="http://localhost:4000/2024/02/19/23292_APC2021_1/" rel="alternate" type="text/html" title="백준 코딩 바이오리듬 [c++]" /><published>2024-02-19T11:18:00+09:00</published><updated>2024-02-19T11:18:25+09:00</updated><id>http://localhost:4000/2024/02/19/23292_APC2021_1</id><content type="html" xml:base="http://localhost:4000/2024/02/19/23292_APC2021_1/"><![CDATA[<h1 id="23292-코딩-바이오리듬-브론즈2">23292 코딩 바이오리듬 브론즈2</h1>
-
-<p><a href="https://www.acmicpc.net/problem/23292"> 문제 링크 </a>
-APC 2021 1번</p>
-
-<h2 id="문제">문제</h2>
-
-<p>바이오리듬(biorhythm)이라는 이론을 들어본 적 있는가? 바이오리듬은 인체에 신체,감성,지성의 세가지 주기가 생년월일의 입력에 따라 어떤 패턴으로 나타나고, 이 패턴의 조합에 따라 능력이나 활동 효율에 차이가 있다는 주장이다.</p>
-
-<p>주헌이는 날마다 달라지는 본인의 코딩 실력도 혹시 바이오리듬의 영향이 아닐까하는 의구심이 들어 수년간의 연구를 진행했다. 그 결과, 코딩과 바이오리듬 사이에 밀접한 연관이 있다는 사실을 발견했고, 주헌이는 이를 코딩 바이오리듬이라는 새로운 개념을 정의하기로 했다. 주헌이가 발견한 코딩 바이오리듬의 값은 생년월일과 날짜를 바탕으로 다음과 같이 계산된다.</p>
-
-<p>‘연도’를 
-$Y(y)$, ‘월’을 
-$M(m)$, ‘일’을 
-$D(d)$ 의 형식이라고 했을 때, 자신의 생일은 “
-$YYYY : MM : DD$”로, 자신이 코딩할 날짜는”
-$yyyy : mm : dd$” 로 정의하고, 편의상       “
-$Y_1Y_2Y_3Y_4 : M_1M_2 : D_1D_2$”, “
-$y_1y_2y_3y_4 : m_1m_2 : d_1d_2$” 라고 하자. 이때 코딩 바이오리듬의 값은 아래와 공식에 따라 구할 수 있다.</p>
-
-<p> 
-\(\displaystyle \sum_{i=1}^4 {(Y_i-y_i})^2 \times \sum_{j=1}^2 {(M_j-m_j})^2 \times \sum_{k=1}^2 {(D_k-d_k})^2\) </p>
-
-<p>예를 들어, 자신의 생년월일이 2000년 01월 01일 이고, 코딩할 날짜가 2021년 10월 30일 일 때 코딩 바이오리듬의 값은 아래와 공식에 따라 계산된다.</p>
-
-<p> 
-$Y_1Y_2Y_3Y_4 : M_1M_2 : D_1D_2 = 2000 : 01 : 01$ </p>
-
-<p> 
-$y_1y_2y_3y_4 : m_1m_2 : d_1d_2 = 2021 : 10 : 30$ </p>
-
-<p>코딩 바이오리듬  
-$={(2-2)^2+(0-0)^2+(0-2)^2+(0-1)^2}  \times {(0-1)^2+(1-0)^2} \times {(0-3)^2+(1-0)^2} $ </p>
-
-<p> 
-$= 5 \times 2 \times 10 = 100$ </p>
-
-<p>누군가의 생년월일과 그 사람이 코딩할 N 일의 날짜가 주어질 때, 날짜 중에서 그 사람의 코딩 바이오리듬이 가장 높은 날의 날짜를 출력하여라. 가장 높은 값을 가지는 날짜가 여러 개라면, 그 중에서 가장 빠른 날짜를 출력한다.</p>
-
-<h2 id="입력">입력</h2>
-<p>첫 번째 줄에 사람의 생년월일이 주어진다.</p>
-
-<p>두 번째 줄에 그 사람이 코딩할 날짜의 일수 N 이 주어진다. ( 2 ≤ N ≤ 1000 )</p>
-
-<p>세 번째 줄부터 이후 N 개의 줄에 걸쳐서 코딩할 날짜가 주어진다. 코딩할 날짜는 반드시 생년월일 이후임이 보장되며, 같은 날짜가 2개 이상 주어지지 않는다.</p>
-
-<p>모든 날짜 형식은 
-$YYYYMMDD$ 형태로 주어지며, 1000년 01월 01일부터 9999년 12월 31일까지 태양력상으로 실제로 존재하는 날짜만 입력으로 주어진다.</p>
-
-<h2 id="출력">출력</h2>
-<p>입력 받은 코딩할 날짜 중에서 코딩 바이오리듬이 가장 높은 날의 날짜를 
-$YYYYMMDD$ 형태로 출력한다.</p>
-
-<p>가장 높은 값을 가지는 날이 여러 개라면, 그 중에서 가장 빠른 날짜를 출력한다.</p>
-
-<h2 id="풀이">풀이</h2>
-
-<p>코딩 바이오리듬은 생일과 날짜에 따라 주어진다.</p>
-
-<p>문제에서 생일과 날짜가 주어지면 코딩 바이오리듬이 가장 높은 날짜를 찾으면된다. (바이오리듬이 같을 경우 날짜 빠른 순)</p>
-
-<p>바이오리듬은 주어진 공식대로 구하면 된다.</p>
-
-<p>map을 사용해 바이오리듬이 가장 큰 날을 찾을 건데, 바이오리듬 값을 key로, 해당 날짜 string을 value로 하는 map을 선언한다.</p>
-
-<p>그리고 map에서 key값이 가장 큰 날짜를 vector<string>에 저장해, 날짜 순으로 sort해 출력하면 해결가능하다.</string></p>
-
-<h2 id="코드">코드</h2>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="n">string</span> <span class="n">birth</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">bioValue</span><span class="p">(</span><span class="n">string</span> <span class="n">day</span><span class="p">){</span>
-    <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">y</span> <span class="o">+=</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">m</span> <span class="o">+=</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">d</span> <span class="o">+=</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">birth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">day</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="n">value</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="n">d</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">birth</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">days</span><span class="p">;</span>
-
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">string</span> <span class="n">tDay</span><span class="p">;</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">tDay</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">bioValue</span><span class="p">(</span><span class="n">tDay</span><span class="p">);</span>
-        <span class="n">days</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">tDay</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">maxDay</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">prev</span><span class="p">(</span><span class="n">days</span><span class="p">.</span><span class="n">end</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">days</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">iter</span> <span class="o">!=</span> <span class="n">days</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">iter</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">max</span> <span class="o">==</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">maxDay</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">iter</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="n">sort</span><span class="p">(</span><span class="n">maxDay</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">maxDay</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">maxDay</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="math" /><category term="try" /><summary type="html"><![CDATA[23292 코딩 바이오리듬 브론즈2]]></summary></entry><entry><title type="html">백준 전화번호 목록 [c++]</title><link href="http://localhost:4000/2024/02/18/5052_phoneNumber/" rel="alternate" type="text/html" title="백준 전화번호 목록 [c++]" /><published>2024-02-18T21:18:00+09:00</published><updated>2024-02-18T21:28:25+09:00</updated><id>http://localhost:4000/2024/02/18/5052_phoneNumber</id><content type="html" xml:base="http://localhost:4000/2024/02/18/5052_phoneNumber/"><![CDATA[<h1 id="5052-전화번호-목록-골드-5">5052 전화번호 목록 골드 5</h1>
-
-<p><a href="https://www.acmicpc.net/submit/5052/73629017"> 문제 링크 </a></p>
-
-<h2 id="문제">문제</h2>
-
-<p>전화번호 목록이 주어진다. 이때, 이 목록이 일관성이 있는지 없는지를 구하는 프로그램을 작성하시오.</p>
-
-<p>전화번호 목록이 일관성을 유지하려면, 한 번호가 다른 번호의 접두어인 경우가 없어야 한다.</p>
-
-<p>예를 들어, 전화번호 목록이 아래와 같은 경우를 생각해보자</p>
-
-<p>긴급전화: 911
-상근: 97 625 999
-선영: 91 12 54 26
-이 경우에 선영이에게 전화를 걸 수 있는 방법이 없다. 전화기를 들고 선영이 번호의 처음 세 자리를 누르는 순간 바로 긴급전화가 걸리기 때문이다. 따라서, 이 목록은 일관성이 없는 목록이다.</p>
-
-<h2 id="입력">입력</h2>
-<p>첫째 줄에 테스트 케이스의 개수 t가 주어진다. (1 ≤ t ≤ 50) 각 테스트 케이스의 첫째 줄에는 전화번호의 수 n이 주어진다. (1 ≤ n ≤ 10000) 다음 n개의 줄에는 목록에 포함되어 있는 전화번호가 하나씩 주어진다. 전화번호의 길이는 길어야 10자리이며, 목록에 있는 두 전화번호가 같은 경우는 없다.</p>
-
-<h2 id="출력">출력</h2>
-<p>각 테스트 케이스에 대해서, 일관성 있는 목록인 경우에는 YES, 아닌 경우에는 NO를 출력한다.</p>
-
-<h2 id="풀이">풀이</h2>
-
-<p>전화번호 부에서 접두사가 일치하는지 여부를 조사하는 문제이다.</p>
-
-<p>처음에는 map을 사용해 전화번호부를 저장하고 (저장되면 크기 순으로 정렬됨) 크기가 자신보다 큰 번호의 접두사 여부를 확인하는 2중 for문으로 코드를 짰다.(아래 코드 1)</p>
-
-<p>그런데 시간초과가 되어, map에 대해 찾아보니 unordered map을 알게 됬다.<br />
-unordered_map은 해쉬테이블로 구현한 자료구조로 탐색 시간복잡도는 O(1)이고<br />
-map은 Binary Search Tree로 탐색 시간 복잡도는 O(log n)이다.<br />
-따라서 굳이 정렬될 필요가 없다면 데이터 양이 많을 경우 unordered map이 훨씬 유리하다.</p>
-
-<p><a href="https://math-coding.tistory.com/31"> unordered map </a></p>
-
-<p>또한 substring을 찾는 코드를 구현하지 않아도, string.h에 substr함수가 존재한다는 것을 알게 됬다.</p>
-
-<p><a href="https://psychoria.tistory.com/773"> substr </a></p>
-
-<p>map을 사용하는 코드를 unordered map으로 수정하니, 시간초과가 해결되었다. (코드 2)</p>
-
-<h2 id="코드-1map을-사용한-2중-for문">코드 1(map을 사용한 2중 for문)</h2>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    
-    <span class="kt">int</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">book</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">t</span><span class="p">;</span>
-    
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">verified</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">string</span> <span class="n">phone</span><span class="p">;</span>
-            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">phone</span><span class="p">;</span>
-            <span class="n">book</span><span class="p">[</span><span class="n">phone</span><span class="p">]</span> <span class="o">=</span> <span class="n">phone</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="p">}</span>
-
-        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">book</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">iter</span> <span class="o">!=</span> <span class="n">prev</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="n">end</span><span class="p">());</span> <span class="o">++</span><span class="n">iter</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">string</span> <span class="n">head</span> <span class="o">=</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
-            <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
-            <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">next_iter</span> <span class="o">=</span> <span class="n">next</span><span class="p">(</span><span class="n">iter</span><span class="p">);</span> <span class="n">next_iter</span> <span class="o">!=</span> <span class="n">book</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">next_iter</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">string</span> <span class="n">cmp</span> <span class="o">=</span> <span class="n">next_iter</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
-                <span class="kt">int</span> <span class="n">cmp_size</span> <span class="o">=</span> <span class="n">next_iter</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">cmp_size</span> <span class="o">&gt;</span> <span class="n">size</span><span class="p">){</span>
-                    <span class="k">if</span><span class="p">(</span><span class="n">head</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">size</span><span class="p">,</span><span class="n">cmp</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-                        <span class="n">verified</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-                        <span class="k">break</span><span class="p">;</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">verified</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-                <span class="k">break</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span><span class="p">(</span><span class="n">verified</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NO"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
-            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"YES"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="n">book</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<h2 id="코드-2-unordered-map--substr">코드 2 (unordered map + substr)</h2>
-
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;unordered_map&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-
-    <span class="kt">int</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">book</span><span class="p">;</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">phone</span><span class="p">;</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">t</span><span class="p">;</span>
-    
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">verified</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">string</span> <span class="n">number</span><span class="p">;</span>
-            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">number</span><span class="p">;</span>
-            <span class="n">phone</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">number</span><span class="p">);</span>
-            <span class="n">book</span><span class="p">[</span><span class="n">number</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">phone</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">phone</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">string</span> <span class="n">subs</span> <span class="o">=</span> <span class="n">phone</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="n">subs</span><span class="p">]){</span>
-                    <span class="n">verified</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span><span class="p">(</span><span class="n">verified</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NO"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
-            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"YES"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="n">book</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-        <span class="n">phone</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="map" /><category term="string" /><category term="hash" /><summary type="html"><![CDATA[5052 전화번호 목록 골드 5]]></summary></entry></feed>
+<span class="p">}</span></code></pre></figure>]]></content><author><name>Hun</name></author><category term="PS" /><category term="try" /><summary type="html"><![CDATA[23294 웹 브라우저1 골드4]]></summary></entry></feed>
