@@ -6,81 +6,70 @@ title: Profile
 
 <h2 align="center">⚒️ Tech Stack ⚒️</h2>
 <h3 align="center">✨ Tech that I can use skillfully ✨</h3>
-<div style="display: flex; justify-content: center;">
+
+<div align="center">
+    <span>FrontEnd : </span>
     <img src="https://img.shields.io/badge/react-20232a.svg?style=for-the-badge&logo=react&logoColor=61DAFB" />
-    <img src="https://img.shields.io/badge/javascript-F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=20232a" />
     <img src="https://img.shields.io/badge/html5-E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" />
     <img src="https://img.shields.io/badge/css3-1572B6.svg?style=for-the-badge&logo=css3&logoColor=white" />
-</div>
-<div style="display: flex; justify-content: center;">
     <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=Sass&logoColor=white"/>
-    <img src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white"/>
-    <img src="https://img.shields.io/badge/amazon s3-47A248?style=for-the-badge&logo=amazons3&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>
+    <img src="https://img.shields.io/badge/React Native-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
+    <img src="https://img.shields.io/badge/Expo-000000?style=for-the-badge&logo=Expo&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white"/>
 </div>
-<div style="display: flex; justify-content: center;">
+<div align="center">
+    <span>⭐️ BackEnd : </span>
+    <img src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white">
+    <img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"/>
     <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/>
+    <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"/>
+    <img src="https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white">
+</div>
+<div align="center">  
+    <span>⭐️ AI : </span>
+    <img src="https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=Keras&logoColor=white">
     <img src="https://img.shields.io/badge/pytorch-CC342D?style=for-the-badge&logo=pytorch&logoColor=white"/>
     <img src="https://img.shields.io/badge/pandas-000000?style=for-the-badge&logo=pandas&logoColor=white"/>
-</div>
-<div style="display: flex; justify-content: center;">
-    <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=C%2B%2B&logoColor=white"/>
-    <img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Expo-000000?style=for-the-badge&logo=Expo&logoColor=white"/>
-    <img src="https://img.shields.io/badge/React Native-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
-    <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"/>
-</div>
-
-<h3 align="center">✨ Tech that I've used at least once ✨</h3>
-<div style="display: flex; justify-content: center;">
-    <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=Ruby&logoColor=white"/>
     <img src="https://img.shields.io/badge/Anaconda-44A833?style=for-the-badge&logo=Anaconda&logoColor=white"/>
 </div>
-<div style="display: flex; justify-content: center;">
-    <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=Tailwind CSS&logoColor=white"/>
-    <img     src="https://img.shields.io/badge/Xcode-147EFB?style=for-the-badge&logo=Xcode&logoColor=white"/>
+</br>
+<div align="center">  
+    <span>Cloud : </span>
+    <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>
+    <img src="https://img.shields.io/badge/amazon s3-47A248?style=for-the-badge&logo=amazons3&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white">
+    <img src="https://img.shields.io/badge/Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white">
+</div>
+<div align="center">  
+    <span>Language : </span>
+    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/>
+    <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=C%2B%2B&logoColor=white"/>
+    <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white">
+    <img src="https://img.shields.io/badge/javascript-F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=20232a" />
+</div>
+<div align="center">  
+    <span>Tools : </span>
+    <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Google Colab-F9AB00?style=for-the-badge&logo=Google Colab&logoColor=white">
+    <img src="https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=Selenium&logoColor=white">
+    <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white">
+</div>
+<div align="center">
+    <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+    <img src="https://img.shields.io/badge/kubernetes-326CE5?&style=for-the-badge&logo=kubernetes&logoColor=white">
+    <img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white">
+    <img src="https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=Ruby&logoColor=white"/>
 </div>
 
-<h3 align="center">📚 Studying 📚</h3>
-<div style="display: flex; justify-content: center;">
-    <img src="https://img.shields.io/badge/Machine%20Learning-4479A1?style=for-the-badge"/>
-    <img src="https://img.shields.io/badge/LLM-2496ED?style=for-the-badge"/>
-    <img src="https://img.shields.io/badge/CICD-000000?style=for-the-badge"/>
-    <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"/>
+</br>
+
+<div align="center">
+    <img src="https://github-readme-activity-graph.vercel.app/graph?username=hun9008&theme=tokyo-night&hide_border=true)" style="height: 150px;" />
+    <img src="http://mazassumnida.wtf/api/v2/generate_badge?boj=dydgns135" style="height: 150px;" />
 </div>
-
-<h3 align="center">🏆 Participated in Competitions 🏆</h3>
-<div style="display: flex; justify-content: center;">
-    <img src="https://img.shields.io/badge/LikeLion%20Ideaton-F05032?style=for-the-badge"/>
-    <img src="https://img.shields.io/badge/LikeLion%20hackathon-F05032?style=for-the-badge"/>
-    <img src="https://img.shields.io/badge/Ajou%20DeepLearning%20Challenge-2496ED?style=for-the-badge"/>
-</div>
-<div style="display: flex; justify-content: center;">
-    <img src="https://img.shields.io/badge/2023%20ICPC%20Regional-000000?style=for-the-badge"/>
-    <img src="https://img.shields.io/badge/MireaSW%20BigData%20Ideaton-339933?style=for-the-badge"/>
-</div>
-
-<h3 align="center">🏆 Win in Competitions 🏆</h3>
-<div style="display: flex; justify-content: center;">
-    <img src="https://img.shields.io/badge/2023%20AjouTon-3178C6?style=for-the-badge"/>
-</div>
-
-
-🏫 Ajou University, Software and computer Engineering Department
-
-💻 멋쟁이 사자처럼 11th.
-
-<h3>🔗 Link</h3>
-
-[![Github Blog](https://img.shields.io/badge/BOJ-000000?style=for-the-badge)](https://solved.ac/profile/dydgns135)
-
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=hun9008&hide_progress=true)
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=hun9008&show_icons=true&theme=tokyonight)
 
 
 
