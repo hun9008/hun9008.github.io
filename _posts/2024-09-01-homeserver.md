@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [홈서버] 개인 Ubuntu 서버 제작
+title: 개인 Ubuntu 서버 제작 [홈서버]
 author: Hun
 tags:
 - DevOps
