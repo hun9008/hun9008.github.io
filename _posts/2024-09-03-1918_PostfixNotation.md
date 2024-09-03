@@ -4,7 +4,7 @@ title: 백준 후위표기식 [c++]
 author: Hun
 tags:
 - PS
-- DP
+- 자료구조
 date: 2024-02-06 09:18 +0800
 last_modified_at: 2024-02-06 09:28:25 +0800
 toc: true
