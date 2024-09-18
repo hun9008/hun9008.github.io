@@ -10,9 +10,9 @@ last_modified_at: 2024-09-10 09:28:25 +0800
 toc: true
 ---
 
-학교 AI 수업 프로젝트에 앞서, 이전 ML 시간에 배웠던 Transformer를 정리해봤다.
-
 <img src="/Transformer_architecture.png">
+
+학교 AI 수업 프로젝트에 앞서, 이전 ML 시간에 배웠던 Transformer를 정리해봤다.
 
 ## Transformer 등장 배경
 
