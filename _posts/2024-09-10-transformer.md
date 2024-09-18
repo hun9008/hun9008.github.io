@@ -1,9 +1,8 @@
 ---
 layout: post
-title: Transformer
+title: Transformer 정리
 author: Hun
 tags:
-- paper
 - deeplearning
 date: 2024-09-10 09:18 +0800
 last_modified_at: 2024-09-10 09:28:25 +0800
